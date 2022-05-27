@@ -28,7 +28,7 @@ class LoginHandler(object):
         db = pymysql.connect(host="localhost", user="root", password="chen123456", db="pythonwork")  # 连接数据库
         cursor = db.cursor()
         sql = "INSERT INTO test01 (name, password) VALUES (%s, %s)"
-        args = "name, password"
+        args = (name, password)
         try:
             cursor.execute(sql, args)
             db.commit()
