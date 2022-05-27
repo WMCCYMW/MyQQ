@@ -34,14 +34,14 @@ class ConnectionHandler(Thread):
                 print("连接关闭失败")
 if __name__=="__main__":
     try:
-        listener=socket.socket()
+        listener=socket.socket(socket.AF_INET)
         listener.bind(('127.0.0.1',8888))
         listener.listen(20)
         while True :
             connection,address=listener.accept()
             ConnectionHandler(connection,address).start()
     except Exception as e:
-        print("服务器错误")
+        print("服务器错误"+str(e))
 
 
 
