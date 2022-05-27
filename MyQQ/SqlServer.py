@@ -14,14 +14,14 @@ class LoginHandler(object):
             result = cursor.fetchone() # 获得结果
             db.close() # 关闭连接
             if password == result[2]: # 如果密码相符
-                print(name + "欢迎登录！")
-                return True
+                # print(name + "欢迎登录！")
+                return 1
             else:
-                print("密码错误，登录失败！")
-                return False
+                # print("密码错误，登录失败！")
+                return 2
         except:
-            print("登录失败，未知错误！")
-            return False
+            # print("登录失败，未知错误！")
+            return 3
 
     @staticmethod
     def create_new_user(name, password): # 创建新用户
@@ -33,12 +33,13 @@ class LoginHandler(object):
             cursor.execute(sql, args)
             db.commit()
             db.close()
-            print(name + "加入成功！")
-            return "0"
+            # print(name + "加入成功！")
+            return 1
         except:
-            print("数据库出错！")
+            # print("数据库出错！")
             db.rollback() # 回滚
             db.close()
+            return 3
 
 
 

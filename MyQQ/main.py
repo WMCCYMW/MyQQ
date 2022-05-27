@@ -1,8 +1,10 @@
 from threading import Thread
 import Server
 import socket
-connection_user=dict() # key为连接的socket， value为用户名
+
+connection_user=dict() # value为连接的socket， key为用户名
 online_connection=list() # 在线用户的连接列表，用于群发消息
+
 class ConnectionHandler(Thread):
     def __init__(self,connection,address):
         Thread.__init__(self)
@@ -12,8 +14,15 @@ class ConnectionHandler(Thread):
         try:
             while True:
                 request=str(self.connection.recv(1024).decode())
-                if request=="login": Server.LoginSever()
-                elif request=="register": Server.RegistSever()
+                # 登录
+                if request=="login":
+                    name, isSucceed = Server.LoginSever(self)
+                    self.name = name
+                    if(isSucceed == 1): # 添加到字典和列表中
+                        connection_user[name] = self.connection
+                        online_connection.append(name)
+                # 注册
+                elif request=="register": Server.RegistSever(self)
         except Exception as e:
             print(str(self.address)+"连接异常，准备关闭")
         finally:
