@@ -17,7 +17,7 @@ while True:
     elif(int(test)==2):
         id = input("请输入用户名")
         password = input("请输入密码")
-        client.send("login".encode())
+        client.send("register".encode())
         client.send(id.encode(encoding='utf-8'))
         client.send(password.encode(encoding='utf-8'))
         if (str(client.recv(1024), encoding='utf-8') == '1'):
