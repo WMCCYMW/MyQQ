@@ -24,6 +24,7 @@ class ConnectionHandler(Thread):
                 # 注册
                 elif request=="register": Server.RegistSever(self)
         except Exception as e:
+            print(str(e))
             print(str(self.address)+"连接异常，准备关闭")
         finally:
             try:
@@ -35,10 +36,11 @@ class ConnectionHandler(Thread):
 if __name__=="__main__":
     try:
         listener=socket.socket(socket.AF_INET)
-        listener.bind(('127.0.0.1',8888))
+        listener.bind(('192.168.23.1',3456))
         listener.listen(20)
         while True :
             connection,address=listener.accept()
+            print(str(address)+"连接成功")
             ConnectionHandler(connection,address).start()
     except Exception as e:
         print("服务器错误"+str(e))

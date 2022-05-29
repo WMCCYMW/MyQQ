@@ -21,12 +21,10 @@ def LoginSever(handler):
     # 获取name和password
     name = str(handler.connection.recv(1024),encoding="utf-8")
     password  = str(handler.connection.recv(1024),encoding="utf-8")
+    # print(name + "\n" + password + "\n")
     isSucceed = SqlServer.LoginHandler.login_check(name, password)
-    if(isSucceed == 1):
-        handler.connection.sendall(bytes(str(isSucceed),"utf-8"))
-        return [isSucceed, name]
-    else:
-        handler.connection.sendall(bytes(str(isSucceed),"utf-8"))
+    handler.connection.sendall(bytes(str(isSucceed),"utf-8"))
+    return [isSucceed, name]
 
 # 注册函数
 def RegistSever(handler):
