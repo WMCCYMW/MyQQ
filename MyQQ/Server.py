@@ -41,21 +41,21 @@ def search_one(handler):
     result = SqlServer.FriendApplicantHandler.search_one(name)
     return result
 
-# 添加好友
+# 发送好友申请
 def add_friend(handler):
-    applicant = SqlServer.FriendApplicantHandler.search_one(handler.name)[0]
+    applicant = handler.id
     recipient = str(handler.connection.recv(1024).decode())
-    SqlServer.FriendApplicantHandler.application(applicant, recipient)
+    return SqlServer.FriendApplicantHandler.application(applicant, recipient)
 
 # 处理好友申请
 def handle_friend_application(handler, args):
-    recipient = SqlServer.FriendApplicantHandler.search_one(handler.name)[0]
+    recipient = handler.id
     applicant = str(handler.connection.recv(1024).decode())
-    SqlServer.FriendApplicantHandler.application(applicant, recipient, args)
+    return SqlServer.FriendApplicantHandler.application(applicant, recipient, args)
 
 # 获取好友列表
 def get_list(handler, state):
-    id = SqlServer.FriendApplicantHandler.search_one(handler.name)[0]
+    id = handler.id
     result = SqlServer.FriendApplicantHandler.search_friend(id, state)
     return result
 

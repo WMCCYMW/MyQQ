@@ -43,7 +43,7 @@ class LoginHandler(object):
 
 # 用于好友申请的handler
 class FriendApplicantHandler(object):
-    # 申请好友
+    # 发送好友申请
     @staticmethod
     def application(applicant, recipient):
         db = pymysql.connect(host="localhost", user="root", password="chen123456", db="pythonwork")  # 连接数据库

@@ -21,6 +21,8 @@ class ConnectionHandler(Thread):
                     if(isSucceed == 1): # 添加到字典和列表中
                         connection_user[name] = self.connection
                         online_connection.append(name)
+                        # 获取自己的id
+                        self.id = Server.search_one(self)[0]
                 # 注册
                 elif request=="register": Server.RegistSever(self)
                 # 获取好友列表
@@ -36,11 +38,17 @@ class ConnectionHandler(Thread):
 
                 # 添加好友
                 elif request == "add_friend":
-                    Server.add_friend(self)
+                    result = Server.add_friend(self)
+                    # result如果为1，则成功发送好友申请，如果为3则为数据库错误
+                    # 给客户端送过去还没写
+
                 # 处理好友申请
                 elif request == "handle_friend_application":
                     args = int(self.connection.recv(1024).decode())
-                    Server.handle_friend_application(self, args)
+                    result = Server.handle_friend_application(self, args)
+                    # result如果为1，则成功处理好友申请，如果为3则为数据库错误
+                    # 给客户端送过去还没写
+
         except Exception as e:
             print(str(e))
             print(str(self.address)+"连接异常，准备关闭")
