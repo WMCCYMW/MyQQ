@@ -85,7 +85,7 @@ class FriendApplicantHandler(object):
         sql = "SELECT * FROM friend_application WHERE (appplicant = '%s' or recipient = '%s') and state = '%s'"
         args = (id, id, state)
         try:
-            cursor.execute(sql)
+            cursor.execute(sql, args)
             result = cursor.fetchone()
             db.close()
             return result
@@ -99,7 +99,7 @@ class FriendApplicantHandler(object):
         sql = "SELECT (id, name) FROM test01 WHERE name = '%s'"
         args = (name)
         try:
-            cursor.execute(sql)
+            cursor.execute(sql, args)
             result = cursor.fetchone()
             db.close()
             return result

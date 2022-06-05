@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="添加好友相关模块">
-      <change beforePath="$PROJECT_DIR$/MyQQ/Server.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server.py" afterDir="false" />
+    <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="每个添加好友的模块都有返回值且main中能获取自己的id">
       <change beforePath="$PROJECT_DIR$/MyQQ/SqlServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/SqlServer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +105,7 @@
       <option name="presentableId" value="Default" />
       <updated>1653629536542</updated>
       <workItem from="1653629538114" duration="16000" />
-      <workItem from="1654396328893" duration="5997000" />
+      <workItem from="1654396328893" duration="6818000" />
     </task>
     <task id="LOCAL-00001" summary="添加好友相关模块">
       <created>1654401375140</created>
@@ -116,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654401375140</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="每个添加好友的模块都有返回值且main中能获取自己的id">
+      <created>1654402625242</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1654402625242</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,7 +140,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="添加好友相关模块" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加好友相关模块" />
+    <MESSAGE value="每个添加好友的模块都有返回值且main中能获取自己的id" />
+    <option name="LAST_COMMIT_MESSAGE" value="每个添加好友的模块都有返回值且main中能获取自己的id" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/main_py$TestClient.coverage" NAME="TestClient 覆盖结果" MODIFIED="1653746932331" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
