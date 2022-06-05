@@ -41,6 +41,78 @@ class LoginHandler(object):
             db.close()
             return 3
 
+# 用于好友申请的handler
+class FriendApplicantHandler(object):
+    # 申请好友
+    @staticmethod
+    def application(applicant, recipient):
+        db = pymysql.connect(host="localhost", user="root", password="chen123456", db="pythonwork")  # 连接数据库
+        cursor = db.cursor()  # 获取数据库的游标
+        sql = "INSERT INTO friend_application VALUES ('%s', '%s', 0)" % (applicant, recipient) # 插入语句
+        try:
+            cursor.execute(sql)
+            db.commit()
+            db.close()
+            return 1
+        except:
+            db.rollback()
+            db.close()
+            return 3
+    # 处理好友申请
+    @staticmethod
+    def handle_it(applicant, recipient, args):
+        db = pymysql.connect(host="localhost", user="root", password="chen123456", db="pythonwork")  # 连接数据库
+        cursor = db.cursor()  # 获取数据库的游标
+        sql = ""
+        if(args == 1): # 同意
+            sql = "UPDATE friend_application SET state VALUES 1 WHERE applicant = '%s' and recipient = '%s'" % (applicant, recipient)
+        else: # 拒绝
+            sql = "DELETE FROM friend_application WHERE applicant = '%s' and recipient = '%s'" % (applicant, recipient)
+        try:
+            cursor.execute(sql)
+            db.commit()
+            db.close()
+            return 1
+        except:
+            db.rollback()
+            db.close()
+            return 3
+    # 获取好友列表或者好友申请
+    @staticmethod
+    def search_friend(id, state):
+        db = pymysql.connect(host="localhost", user="root", password="chen123456", db="pythonwork") # 连接数据库
+        cursor = db.cursor() # 获取数据库的游标
+        sql = "SELECT * FROM friend_application WHERE (appplicant = '%s' or recipient = '%s') and state = '%s'"
+        args = (id, id, state)
+        try:
+            cursor.execute(sql)
+            result = cursor.fetchone()
+            db.close()
+            return result
+        except:
+            return 3
+    # 通过name查找一个人
+    @staticmethod
+    def search_one(name):
+        db = pymysql.connect(host="localhost", user="root", password="chen123456", db="pythonwork") # 连接数据库
+        cursor = db.cursor() # 获取数据库的游标
+        sql = "SELECT (id, name) FROM test01 WHERE name = '%s'"
+        args = (name)
+        try:
+            cursor.execute(sql)
+            result = cursor.fetchone()
+            db.close()
+            return result
+        except:
+            return 3
+
+
+
+
+
+
+
+
 
 
 

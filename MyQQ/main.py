@@ -23,6 +23,24 @@ class ConnectionHandler(Thread):
                         online_connection.append(name)
                 # 注册
                 elif request=="register": Server.RegistSever(self)
+                # 获取好友列表
+                elif request == "get_list":
+                    state = int(self.connection.recv(1024).decode())
+                    result = Server.get_list(self, state)
+                    # 给客户端送过去还没写
+
+                # 查找好友
+                elif request == "search_one":
+                    result = Server.search_one(self)
+                    # 给客户端送过去还没写
+
+                # 添加好友
+                elif request == "add_friend":
+                    Server.add_friend(self)
+                # 处理好友申请
+                elif request == "handle_friend_application":
+                    args = int(self.connection.recv(1024).decode())
+                    Server.handle_friend_application(self, args)
         except Exception as e:
             print(str(e))
             print(str(self.address)+"连接异常，准备关闭")
@@ -33,6 +51,11 @@ class ConnectionHandler(Thread):
                 connection_user.pop()
             except:
                 print("连接关闭失败")
+
+
+
+
+
 if __name__=="__main__":
     try:
         listener=socket.socket(socket.AF_INET)
