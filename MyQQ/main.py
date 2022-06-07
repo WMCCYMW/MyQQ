@@ -35,7 +35,7 @@ class ConnectionHandler(Thread):
 
                 # 查找用户
                 elif request == "search_one":
-                    find_name = str(connection.recv(1024).decode())
+                    find_name = str(self.connection.recv(1024).decode())
                     Server.find_user(self, find_name)
 
                 # 添加好友
