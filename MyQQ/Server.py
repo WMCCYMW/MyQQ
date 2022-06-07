@@ -80,22 +80,22 @@ def get_list(handler, state):
                 handler.connection.sendall(bytes(str(friend_name), "utf-8"))
         handler.connection.sendall(bytes(str("结束"), "utf-8"))  # 要是有个name叫做"结束"就完蛋了。。。
 
-# 给好友发送消息
-def send_to_friend(handler, friend_socket):
-    message = recvc_string(handler)
-    send_string(friend_socket, message)
-
 # 查找用户
 def find_user(handler, name):
-    result = search_one_by_name(name)
+    result = SqlServer.SearchHandler.search_one_by_name(name)
     if result == 3:
         handler.connection.sendall(bytes(str("数据库错误"), "utf-8"))
-    elif result == None:
+    elif result is None:
         handler.connection.sendall(bytes(str("无匹配项"), "utf-8"))
     else:
         handler.connection.sendall(bytes(str("成功"), "utf-8"))
         handler.connection.sendall(bytes(str(result[0]), "utf-8"))  # 发送id
         handler.connection.sendall(bytes(str(result[1]), "utf-8"))  # 发送name
+
+# 给好友发送消息
+def send_to_friend(handler, friend_socket):
+    message = recvc_string(handler)
+    send_string(friend_socket, message)
 
 
 
