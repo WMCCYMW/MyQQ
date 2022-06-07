@@ -51,9 +51,7 @@ while True:
         client.send("get_friend_list".encode())
         state = input("输入1获取好友目录，输入0获取接收的好友申请") # 有个问题：获取的好友申请，并不仅是接收的，还包括自己发出去的
         client.send(state.encode())
-        print("***************")
         result = str(client.recv(1024), encoding='utf-8')
-        print("#################")
         if(result == "数据库错误"):
             print(result)
         elif(result == "成功"):

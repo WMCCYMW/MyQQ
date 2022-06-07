@@ -13,9 +13,9 @@ def recvc_string(handler):
             subcontent=handler.connection.recv(b_size)
         content+=str(subcontent,encoding='utf-8')
     return content
-def send_string(handler,content):
-    handler.connection.sendall(bytes(content,encoding='utf-8').__len__().to_bytes(4,byteorder='big'))
-    handler.connection.sendall(bytes(content,encoding='utf-8'))
+def send_string(socket,content):
+    socket.sendall(bytes(content,encoding='utf-8').__len__().to_bytes(4,byteorder='big')) # 发送消息长度
+    socket.sendall(bytes(content,encoding='utf-8')) # 发送消息
 
 # 检测登录函数
 def LoginSever(handler):
@@ -67,6 +67,14 @@ def get_list(handler, state):
     id = handler.id
     result = SqlServer.FriendApplicantHandler.get_friend_list(id, state)
     return result
+
+# 给好友发送消息
+def send_to_friend(handler, friend_socket):
+    message = recvc_string(handler)
+    send_string(friend_socket, message)
+
+
+
 
 
 

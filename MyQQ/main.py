@@ -2,7 +2,7 @@ from threading import Thread
 import Server
 import socket
 
-connection_user=dict() # value为连接的socket， key为用户名
+connection_user=dict() # value为连接的socket， key为id
 online_connection=list() # 在线用户的连接列表，用于群发消息
 
 class ConnectionHandler(Thread):
@@ -19,10 +19,11 @@ class ConnectionHandler(Thread):
                     name, isSucceed = Server.LoginSever(self)
                     self.name = name
                     if(isSucceed == 1): # 添加到字典和列表中
-                        connection_user[name] = self.connection
-                        online_connection.append(name)
                         # 获取自己的id
                         self.id = Server.search_one_by_name(name)[0]
+                        connection_user[id] = self.connection
+                        online_connection.append(id)
+
                 # 注册
                 elif request=="register":
                     Server.RegistSever(self)
@@ -68,7 +69,21 @@ class ConnectionHandler(Thread):
                     print(args)
                     Server.handle_friend_application(self, args)
                     # result如果为1，则成功处理好友申请，如果为3则为数据库错误
-                    # 给客户端送过去还没写
+
+                # 给好友发消息
+                elif request == "send_to_friend":
+                    friend_name = str(connection.recv(1024),encoding="utf-8")
+                    friend_id = Server.search_one_by_name(friend_name)
+                    if friend_id in online_connection:
+                        connection.sendall(bytes(str("成功"), "utf-8"))
+                        friend_socket = connection_user[friend_id]
+                        Server.send_to_friend(self, friend_socket)
+                    else:
+                        # 发送失败消息
+                        connection.sendall(bytes(str("好友未在线"), "utf-8"))
+
+
+
 
         except Exception as e:
             print(str(e))
