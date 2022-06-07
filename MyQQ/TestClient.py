@@ -1,4 +1,6 @@
 import socket
+import time
+
 client=socket.socket(socket.AF_INET)
 client.connect(('192.168.0.102',3456))
 print("这是一个测试用客户端")
@@ -9,7 +11,9 @@ while True:
         name=input("请输入用户名")
         password=input("请输入密码")
         client.send("login".encode())
+        time.sleep(0.2)
         client.send(name.encode(encoding='utf-8'))
+        time.sleep(0.2)
         client.send(password.encode(encoding='utf-8'))
         if(str(client.recv(1024),encoding='utf-8')=='1'):
             print("登录成功")
@@ -19,7 +23,9 @@ while True:
         name = input("请输入用户名")
         password = input("请输入密码")
         client.send("register".encode())
+        time.sleep(0.2)
         client.send(name.encode(encoding='utf-8'))
+        time.sleep(0.2)
         client.send(password.encode(encoding='utf-8'))
         if (str(client.recv(1024), encoding='utf-8') == '1'):
             print("注册成功")
@@ -29,6 +35,7 @@ while True:
     elif(int(test)==3):
         name = input("请输入查找的用户")
         client.send("search_one".encode())
+        time.sleep(0.2)
         client.send(name.encode(encoding='utf-8'))
         result = str(client.recv(1024), encoding='utf-8')
         if(result == "数据库错误" or result == "无匹配项"):
@@ -40,6 +47,7 @@ while True:
             add_friend = input("输入1向其发送好友申请")
             if add_friend == "1":
                 client.send("add_friend".encode())
+                time.sleep(0.2)
                 client.send(name.encode())
                 result = str(client.recv(1024), encoding='utf-8')
                 if result == "1":
@@ -74,6 +82,7 @@ while True:
                     client.send("handle_friend_application".encode())
                     agree = input("按1同意，按0拒绝")
                     client.send(agree.encode())
+                    time.sleep(0.2)
                     applicant_id = "5" # 这个得通过前端传回applicant的id
                     client.send(applicant_id.encode())
                     result = str(client.recv(1024), encoding='utf-8')
@@ -87,11 +96,15 @@ while True:
                     message = input("请输入发送内容：")
                     lisi = "lisi"
                     client.send("send_to_friend".encode())
+                    time.sleep(0.2)
                     client.send(lisi.encode())
                     result = str(client.recv(1024), encoding='utf-8')
                     if result == "成功":
                         client.sendall(bytes(message, encoding='utf-8').__len__().to_bytes(4, byteorder='big'))  # 发送消息长度
+                        time.sleep(0.2)
                         client.sendall(bytes(message, encoding='utf-8'))  # 发送消息
+                        result = str(client.recv(1024), encoding='utf-8')
+                        print(result)
                     else:
                         print(result)
 

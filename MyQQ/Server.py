@@ -94,8 +94,10 @@ def find_user(handler, name):
 
 # 给好友发送消息
 def send_to_friend(handler, friend_socket):
-    message = recvc_string(handler)
+    message = handler.id + ":" + recvc_string(handler)
     send_string(friend_socket, message)
+    handler.connection.sendall(bytes(str("已发送：" + message), "utf-8")) # 但是client并不会收到这个消息，这是接下来应该解决的
+
 
 
 
