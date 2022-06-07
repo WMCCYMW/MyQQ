@@ -31,33 +31,12 @@ class ConnectionHandler(Thread):
                 # 获取好友列表
                 elif request == "get_friend_list":
                     state = int(self.connection.recv(1024).decode())
-                    result = Server.get_list(self, state)
-                    if result == 3:
-                        connection.sendall(bytes(str("数据库错误"), "utf-8"))
-                    else:
-                        connection.sendall(bytes(str("成功"), "utf-8"))
-                        for subRes in result:
-                            if(subRes[0] == self.id):
-                                friend = Server.search_one_by_id(subRes[1])
-                                friend_name = friend[1]
-                                connection.sendall(bytes(str(friend_name), "utf-8"))
-                            else:
-                                friend_name = Server.search_one_by_id(subRes[0])[1]
-                                connection.sendall(bytes(str(friend_name), "utf-8"))
-                        connection.sendall(bytes(str("结束"), "utf-8")) # 要是有个name叫做"结束"就完蛋了。。。
+                    Server.get_list(self, state)
 
                 # 查找用户
                 elif request == "search_one":
                     name = str(connection.recv(1024).decode())
-                    result = Server.search_one_by_name(name)
-                    if result == 3:
-                        connection.sendall(bytes(str("数据库错误"), "utf-8"))
-                    elif result == None:
-                        connection.sendall(bytes(str("无匹配项"), "utf-8"))
-                    else:
-                        connection.sendall(bytes(str("成功"), "utf-8"))
-                        connection.sendall(bytes(str(result[0]), "utf-8")) # 发送id
-                        connection.sendall(bytes(str(result[1]), "utf-8")) # 发送name
+                    Server.find_user(name)
 
                 # 添加好友
                 elif request == "add_friend":

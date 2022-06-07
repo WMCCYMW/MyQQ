@@ -66,12 +66,36 @@ def handle_friend_application(handler, args):
 def get_list(handler, state):
     id = handler.id
     result = SqlServer.FriendApplicantHandler.get_friend_list(id, state)
-    return result
+    if result == 3:
+        handler.connection.sendall(bytes(str("数据库错误"), "utf-8"))
+    else:
+        handler.connection.sendall(bytes(str("成功"), "utf-8"))
+        for subRes in result:
+            if (subRes[0] == handler.id):
+                friend = search_one_by_id(subRes[1])
+                friend_name = friend[1]
+                handler.connection.sendall(bytes(str(friend_name), "utf-8"))
+            else:
+                friend_name = search_one_by_id(subRes[0])[1]
+                handler.connection.sendall(bytes(str(friend_name), "utf-8"))
+        handler.connection.sendall(bytes(str("结束"), "utf-8"))  # 要是有个name叫做"结束"就完蛋了。。。
 
 # 给好友发送消息
 def send_to_friend(handler, friend_socket):
     message = recvc_string(handler)
     send_string(friend_socket, message)
+
+# 查找用户
+def find_user(handler, name):
+    result = search_one_by_name(name)
+    if result == 3:
+        handler.connection.sendall(bytes(str("数据库错误"), "utf-8"))
+    elif result == None:
+        handler.connection.sendall(bytes(str("无匹配项"), "utf-8"))
+    else:
+        handler.connection.sendall(bytes(str("成功"), "utf-8"))
+        handler.connection.sendall(bytes(str(result[0]), "utf-8"))  # 发送id
+        handler.connection.sendall(bytes(str(result[1]), "utf-8"))  # 发送name
 
 
 
