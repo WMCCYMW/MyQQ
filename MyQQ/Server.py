@@ -82,7 +82,7 @@ def get_list(handler, state):
 
 # 查找用户
 def find_user(handler, name):
-    result = SqlServer.SearchHandler.search_one_by_name(name)
+    result = search_one_by_name(name)
     if result == 3:
         handler.connection.sendall(bytes(str("数据库错误"), "utf-8"))
     elif result is None:
