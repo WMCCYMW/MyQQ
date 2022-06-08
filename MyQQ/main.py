@@ -1,6 +1,7 @@
 from threading import Thread
 import Server
 import socket
+import json
 
 connection_user=dict() # value为连接的socket， key为id
 online_connection=list() # 在线用户的连接列表，用于群发消息
@@ -13,10 +14,12 @@ class ConnectionHandler(Thread):
     def run(self) :
         try:
             while True:
-                request=str(self.connection.recv(1024).decode())
+                pkt_json=str(self.connection.recv(1024).decode())
+                pkt = json.loads(pkt_json)
+                request = pkt[0]
                 # 登录
                 if request=="login":
-                    name, isSucceed = Server.LoginSever(self)
+                    name, isSucceed = Server.LoginSever(self, pkt)
                     self.name = name
                     if(isSucceed == 1): # 添加到字典和列表中
                         # 获取自己的id
@@ -26,7 +29,7 @@ class ConnectionHandler(Thread):
 
                 # 注册
                 elif request=="register":
-                    Server.RegistSever(self)
+                    Server.RegistSever(self, pkt)
 
                 # 获取好友列表
                 elif request == "get_friend_list":
@@ -34,9 +37,8 @@ class ConnectionHandler(Thread):
                     Server.get_list(self, state)
 
                 # 查找用户
-                elif request == "search_one":
-                    find_name = str(self.connection.recv(1024).decode())
-                    Server.find_user(self, find_name)
+                elif request == "search_user":
+                    Server.find_user(self, pkt)
 
                 # 添加好友
                 elif request == "add_friend":
@@ -50,7 +52,7 @@ class ConnectionHandler(Thread):
                 # 给好友发消息
                 elif request == "send_to_friend":
                     friend_name = str(self.connection.recv(1024),encoding="utf-8")
-                    friend_id = Server.search_one_by_name(friend_name)
+                    friend_id = Server.search_one_by_name(friend_name)[0]
                     if friend_id in online_connection:
                         self.connection.sendall(bytes(str("成功"), "utf-8"))
                         friend_socket = connection_user[friend_id]
@@ -58,6 +60,19 @@ class ConnectionHandler(Thread):
                     else:
                         # 发送失败消息
                         self.connection.sendall(bytes(str("好友未在线"), "utf-8"))
+
+                # 接收好友消息
+                elif request == "receive_from_friend":
+                    friend_name = str(self.connection.recv(1024),encoding="utf-8")
+                    friend_id = Server.search_one_by_name(friend_name)[0]
+                    if friend_id in online_connection:
+                        self.connection.sendall(bytes(str("成功"), "utf-8"))
+                        friend_socket = connection_user[friend_id]
+                        Server.receive_from_friend(self, friend_socket)
+                    else:
+                        # 发送失败消息
+                        self.connection.sendall(bytes(str("好友未在线"), "utf-8"))
+
 
 
 

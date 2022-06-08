@@ -1,3 +1,4 @@
+import json
 import math
 import SqlServer
 import math
@@ -18,22 +19,30 @@ def send_string(socket,content):
     socket.sendall(bytes(content,encoding='utf-8')) # 发送消息
 
 # 检测登录函数
-def LoginSever(handler):
+def LoginSever(handler, pkt):
     # 获取name和password
-    name = str(handler.connection.recv(1024),encoding="utf-8")
-    password = str(handler.connection.recv(1024),encoding="utf-8")
+    # name = str(handler.connection.recv(1024),encoding="utf-8")
+    name = pkt[1]
+    # password = str(handler.connection.recv(1024),encoding="utf-8")
+    password = pkt[2]
     # print(name + "\n" + password + "\n")
     isSucceed = SqlServer.LoginHandler.login_check(name, password)
-    handler.connection.sendall(bytes(str(isSucceed),"utf-8"))
+    response = ("login", str(isSucceed))
+    response_json = json.dumps(response)
+    handler.connection.sendall(bytes(response_json,"utf-8"))
     return [name, isSucceed]
 
 # 注册函数
-def RegistSever(handler):
+def RegistSever(handler, pkt):
     # 获取name和password
-    name = str(handler.connection.recv(1024).decode())
-    password = str(handler.connection.recv(1024).decode())
+    # name = str(handler.connection.recv(1024).decode())
+    name = pkt[1]
+    # password = str(handler.connection.recv(1024).decode())
+    password = pkt[2]
     isSucceed = SqlServer.LoginHandler.create_new_user(name, password)
-    handler.connection.sendall(bytes(str(isSucceed),"utf-8"))
+    response = ("register", str(isSucceed))
+    response_json = json.dumps(response)
+    handler.connection.sendall(bytes(response_json,"utf-8"))
 
 # 通过name得到(id,name)
 def search_one_by_name(name):
@@ -81,22 +90,35 @@ def get_list(handler, state):
         handler.connection.sendall(bytes(str("结束"), "utf-8"))  # 要是有个name叫做"结束"就完蛋了。。。
 
 # 查找用户
-def find_user(handler, name):
-    result = search_one_by_name(name)
+def find_user(handler, pkt):
+    result = search_one_by_name(pkt[1])
+    response = list("search_user")
     if result == 3:
-        handler.connection.sendall(bytes(str("数据库错误"), "utf-8"))
+        # handler.connection.sendall(bytes(str("数据库错误"), "utf-8"))
+        response.append("数据库错误")
     elif result is None:
-        handler.connection.sendall(bytes(str("无匹配项"), "utf-8"))
+        # handler.connection.sendall(bytes(str("无匹配项"), "utf-8"))
+        response.append("无匹配项")
     else:
-        handler.connection.sendall(bytes(str("成功"), "utf-8"))
-        handler.connection.sendall(bytes(str(result[0]), "utf-8"))  # 发送id
-        handler.connection.sendall(bytes(str(result[1]), "utf-8"))  # 发送name
+        # handler.connection.sendall(bytes(str("成功"), "utf-8"))
+        response.append("成功")
+        response.append(result[0])
+        response.append(result[1])
+        # handler.connection.sendall(bytes(str(result[0]), "utf-8"))  # 发送id
+        # handler.connection.sendall(bytes(str(result[1]), "utf-8"))  # 发送name
+        response_json = json.dumps(response)
+        handler.connection.sendall(bytes(response_json, "utf-8"))
+
 
 # 给好友发送消息
 def send_to_friend(handler, friend_socket):
-    message = handler.id + ":" + recvc_string(handler)
+    message = str(handler.id) + ":" + recvc_string(handler)
     send_string(friend_socket, message)
-    handler.connection.sendall(bytes(str("已发送：" + message), "utf-8")) # 但是client并不会收到这个消息，这是接下来应该解决的
+    handler.connection.sendall(bytes(str("已发送：" + message), "utf-8"))
+
+# 接收好友的消息
+def receive_from_friend(handler, friend_socket):
+    message = str(handler.connection.recv(1024).decode())
 
 
 

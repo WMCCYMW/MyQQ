@@ -1,5 +1,6 @@
 import socket
 import time
+import json
 
 client=socket.socket(socket.AF_INET)
 client.connect(('192.168.0.102',3456))
@@ -10,39 +11,57 @@ while True:
     if(int(test)==1):
         name=input("请输入用户名")
         password=input("请输入密码")
-        client.send("login".encode())
-        time.sleep(0.2)
-        client.send(name.encode(encoding='utf-8'))
-        time.sleep(0.2)
-        client.send(password.encode(encoding='utf-8'))
-        if(str(client.recv(1024),encoding='utf-8')=='1'):
+
+        pkt = ("login", name, password)
+        pkt_json = json.dumps(pkt)
+        client.send(pkt_json.encode())
+        # client.send("login".encode())
+        # time.sleep(0.2)
+        # client.send(name.encode(encoding='utf-8'))
+        # time.sleep(0.2)
+        # client.send(password.encode(encoding='utf-8'))
+        response_json = str(client.recv(1024),encoding='utf-8')
+        response = json.loads(response_json)
+        if(response[1]=='1'):
             print("登录成功")
         else: print("登录失败")
 
     elif(int(test)==2):
         name = input("请输入用户名")
         password = input("请输入密码")
-        client.send("register".encode())
-        time.sleep(0.2)
-        client.send(name.encode(encoding='utf-8'))
-        time.sleep(0.2)
-        client.send(password.encode(encoding='utf-8'))
-        if (str(client.recv(1024), encoding='utf-8') == '1'):
+
+        pkt = ("register", name, password)
+        pkt_json = json.dumps(pkt)
+        client.send(pkt_json.encode())
+        # client.send(pkt_json.encode())
+        # client.send("register".encode())
+        # time.sleep(0.2)
+        # client.send(name.encode(encoding='utf-8'))
+        # time.sleep(0.2)
+        response_json = str(client.recv(1024),encoding='utf-8')
+        response = json.loads(response_json)
+        if (response[1] == '1'):
             print("注册成功")
         else:
             print("注册失败")
 
     elif(int(test)==3):
         name = input("请输入查找的用户")
-        client.send("search_one".encode())
-        time.sleep(0.2)
-        client.send(name.encode(encoding='utf-8'))
-        result = str(client.recv(1024), encoding='utf-8')
+
+        pkt = ("search_user", name)
+        pkt_json = json.dumps(pkt)
+        client.send(pkt_json.encode())
+        # client.send("search_one".encode())
+        # time.sleep(0.2)
+        # client.send(name.encode(encoding='utf-8'))
+        response_json = str(client.recv(1024),encoding='utf-8')
+        response = json.loads(response_json)
+        result = response[1]
         if(result == "数据库错误" or result == "无匹配项"):
             print(result)
         elif(result == "成功"):
-            id = str(client.recv(1024), encoding='utf-8')
-            name = str(client.recv(1024), encoding='utf-8')
+            id = response[2]
+            name = response[3]
             print("id = " + id + " ;  name = " + name)
             add_friend = input("输入1向其发送好友申请")
             if add_friend == "1":
