@@ -15,11 +15,6 @@ while True:
         pkt = ("login", name, password)
         pkt_json = json.dumps(pkt)
         client.send(pkt_json.encode())
-        # client.send("login".encode())
-        # time.sleep(0.2)
-        # client.send(name.encode(encoding='utf-8'))
-        # time.sleep(0.2)
-        # client.send(password.encode(encoding='utf-8'))
         response_json = str(client.recv(1024),encoding='utf-8')
         response = json.loads(response_json)
         if(response[1]=='1'):
@@ -33,11 +28,6 @@ while True:
         pkt = ("register", name, password)
         pkt_json = json.dumps(pkt)
         client.send(pkt_json.encode())
-        # client.send(pkt_json.encode())
-        # client.send("register".encode())
-        # time.sleep(0.2)
-        # client.send(name.encode(encoding='utf-8'))
-        # time.sleep(0.2)
         response_json = str(client.recv(1024),encoding='utf-8')
         response = json.loads(response_json)
         if (response[1] == '1'):
@@ -51,60 +41,57 @@ while True:
         pkt = ("search_user", name)
         pkt_json = json.dumps(pkt)
         client.send(pkt_json.encode())
-        # client.send("search_one".encode())
-        # time.sleep(0.2)
-        # client.send(name.encode(encoding='utf-8'))
         response_json = str(client.recv(1024),encoding='utf-8')
         response = json.loads(response_json)
         result = response[1]
         if(result == "数据库错误" or result == "无匹配项"):
             print(result)
         elif(result == "成功"):
-            id = response[2]
-            name = response[3]
+            id = str(response[2][0])
+            name = response[2][1]
             print("id = " + id + " ;  name = " + name)
             add_friend = input("输入1向其发送好友申请")
             if add_friend == "1":
-                client.send("add_friend".encode())
-                time.sleep(0.2)
-                client.send(name.encode())
-                result = str(client.recv(1024), encoding='utf-8')
+                pkt = ("add_friend", name)
+                pkt_json = json.dumps(pkt)
+                client.send(pkt_json.encode())
+                response_json = str(client.recv(1024), encoding='utf-8')
+                response = json.loads(response_json)
+                result = str(response[1])
                 if result == "1":
                     print("已发送")
                 elif result == "3":
                     print("数据库错误，发送失败")
 
     elif(int(test) == 4):
-        client.send("get_friend_list".encode())
         state = input("输入1获取好友目录，输入0获取接收的好友申请") # 有个问题：获取的好友申请，并不仅是接收的，还包括自己发出去的
-        client.send(state.encode())
-        result = str(client.recv(1024), encoding='utf-8')
+        pkt = ("get_friend_list", state)
+        pkt_json = json.dumps(pkt)
+        client.send(pkt_json.encode())
+        response_json = str(client.recv(1024), encoding='utf-8')
+        response = json.loads(response_json)
+        result = response[1]
         if(result == "数据库错误"):
             print(result)
         elif(result == "成功"):
             print("结果如下：")
-            name = str(client.recv(1024), encoding='utf-8')
-            friend_names = list()
-            # 要是有个name叫做"结束"就不妙了
-            if(name == "结束"):
-                print("NULL")
-            while name != "结束":
-                print(name)
-                friend_names.append(name)
-                name = str(client.recv(1024), encoding='utf-8')
+            for friend in response[2:]:
+                print(friend)
+
             # 处理好友申请
             if(state == "0"):
                 toHandle = input("按1进行处理，按2不处理")
                 if toHandle == "2":
                     continue
                 else:
-                    client.send("handle_friend_application".encode())
                     agree = input("按1同意，按0拒绝")
-                    client.send(agree.encode())
-                    time.sleep(0.2)
                     applicant_id = "5" # 这个得通过前端传回applicant的id
-                    client.send(applicant_id.encode())
-                    result = str(client.recv(1024), encoding='utf-8')
+                    pkt = ("handle_friend_application", agree, applicant_id)
+                    pkt_json = json.dumps(pkt)
+                    client.send(pkt_json.encode())
+                    response_json = str(client.recv(1024), encoding='utf-8')
+                    response = json.loads(response_json)
+                    result = str(response[1])
                     if(result == "1"):
                         print("成功处理")
                     elif(result == "3"):
@@ -113,19 +100,14 @@ while True:
             if(state == "1"):
                 if "1" == input("按1给好友lisi发送消息"):
                     message = input("请输入发送内容：")
-                    lisi = "lisi"
-                    client.send("send_to_friend".encode())
-                    time.sleep(0.2)
-                    client.send(lisi.encode())
-                    result = str(client.recv(1024), encoding='utf-8')
-                    if result == "成功":
-                        client.sendall(bytes(message, encoding='utf-8').__len__().to_bytes(4, byteorder='big'))  # 发送消息长度
-                        time.sleep(0.2)
-                        client.sendall(bytes(message, encoding='utf-8'))  # 发送消息
-                        result = str(client.recv(1024), encoding='utf-8')
-                        print(result)
-                    else:
-                        print(result)
+                    friend_name = "lisi"
+                    pkt = ("send_to_friend", friend_name, message)
+                    pkt_json = json.dumps(pkt)
+                    client.send(pkt_json.encode())
+                    response_json = str(client.recv(1024), encoding='utf-8')
+                    response = json.loads(response_json)
+                    result = response[1]
+                    print(result)
 
 
 

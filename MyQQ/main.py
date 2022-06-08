@@ -33,8 +33,7 @@ class ConnectionHandler(Thread):
 
                 # 获取好友列表
                 elif request == "get_friend_list":
-                    state = int(self.connection.recv(1024).decode())
-                    Server.get_list(self, state)
+                    Server.get_friend_list(self, pkt)
 
                 # 查找用户
                 elif request == "search_user":
@@ -42,24 +41,27 @@ class ConnectionHandler(Thread):
 
                 # 添加好友
                 elif request == "add_friend":
-                    Server.add_friend(self)
+                    Server.add_friend(self, pkt)
 
                 # 处理好友申请
                 elif request == "handle_friend_application":
-                    args = int(self.connection.recv(1024).decode())
-                    Server.handle_friend_application(self, args)
+                    Server.handle_friend_application(self, pkt)
 
                 # 给好友发消息
                 elif request == "send_to_friend":
-                    friend_name = str(self.connection.recv(1024),encoding="utf-8")
+                    friend_name = pkt[1]
                     friend_id = Server.search_one_by_name(friend_name)[0]
+                    response = list()
+                    response.append("send_to_friend")
                     if friend_id in online_connection:
-                        self.connection.sendall(bytes(str("成功"), "utf-8"))
+                        response.append("成功")
                         friend_socket = connection_user[friend_id]
-                        Server.send_to_friend(self, friend_socket)
+                        Server.send_to_friend(self, friend_socket, pkt)
                     else:
                         # 发送失败消息
-                        self.connection.sendall(bytes(str("好友未在线"), "utf-8"))
+                        response.append("好友未在线")
+                    response_json = json.dumps(response)
+                    self.connection.sendall(bytes(response_json, "utf-8"))
 
                 # 接收好友消息
                 elif request == "receive_from_friend":
