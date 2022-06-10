@@ -1,5 +1,4 @@
 import json
-import math
 import SqlServer
 import math
 def recvc_string(handler):
@@ -111,16 +110,12 @@ def find_user(handler, pkt):
 
 # 给好友发送消息
 def send_to_friend(handler, friend_socket, pkt):
-    message = pkt[2]
     # 把pkt[1]，也就是目标改为来源；pkt[0]改为"receive_from_friend"
     pkt[1] = handler.name
     pkt[0] = "receive_from_friend"
     pkt_json = json.dumps(pkt)
     friend_socket.sendall(bytes(pkt_json, encoding='utf-8'))  # 发送消息
 
-# 接收好友的消息
-def receive_from_friend(handler, friend_socket):
-    message = str(handler.connection.recv(1024).decode())
 
 
 

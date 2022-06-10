@@ -49,10 +49,11 @@ class ConnectionHandler(Thread):
 
                 # 给好友发消息
                 elif request == "send_to_friend":
-                    friend_name = pkt[1]
-                    friend_id = Server.search_one_by_name(friend_name)[0]
+                    friend_id = pkt[1]
                     response = list()
                     response.append("send_to_friend")
+                    friend_name = Server.search_one_by_id(friend_id)[1]
+                    response.append(friend_name)
                     if friend_id in online_connection:
                         response.append("成功")
                         friend_socket = connection_user[friend_id]
@@ -62,18 +63,6 @@ class ConnectionHandler(Thread):
                         response.append("好友未在线")
                     response_json = json.dumps(response)
                     self.connection.sendall(bytes(response_json, "utf-8"))
-
-                # 接收好友消息
-                elif request == "receive_from_friend":
-                    friend_name = str(self.connection.recv(1024),encoding="utf-8")
-                    friend_id = Server.search_one_by_name(friend_name)[0]
-                    if friend_id in online_connection:
-                        self.connection.sendall(bytes(str("成功"), "utf-8"))
-                        friend_socket = connection_user[friend_id]
-                        Server.receive_from_friend(self, friend_socket)
-                    else:
-                        # 发送失败消息
-                        self.connection.sendall(bytes(str("好友未在线"), "utf-8"))
 
 
 
@@ -97,8 +86,9 @@ class ConnectionHandler(Thread):
 if __name__=="__main__":
     try:
         listener=socket.socket(socket.AF_INET)
-        listener.bind(('192.168.0.102',3456))
+        listener.bind(('192.168.0.103',3456))
         listener.listen(20)
+        print("服务器启动完毕")
         while True :
             connection,address=listener.accept()
             print(str(address)+"连接成功")
