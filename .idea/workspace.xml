@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="收到好友私聊包、待确定的好友申请包的处理">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="登录返回的是自己的信息，然后Client的login.py可以获得自己的id(self_id)">
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/login.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/serverModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/serverModule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Server/Server.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/Server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Server/SqlServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/SqlServer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +50,7 @@
       <recent name="C:\Users\lenovo\Desktop\PythonClass\MyQQ\MyQQ\Server" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.TestClient">
+  <component name="RunManager" selected="Python.test">
     <configuration name="TestClient" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="MyQQ" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -120,8 +117,31 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="MyQQ" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/MyQQ" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MyQQ/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.TestClient2" />
       </list>
@@ -243,7 +263,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654946004153</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="登录返回的是自己的信息，然后Client的login.py可以获得自己的id(self_id)">
+      <created>1654947206858</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1654947206858</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,7 +297,8 @@
     <MESSAGE value="包" />
     <MESSAGE value="socket间发送的消息全部改为了包的形式" />
     <MESSAGE value="收到好友私聊包、待确定的好友申请包的处理" />
-    <option name="LAST_COMMIT_MESSAGE" value="收到好友私聊包、待确定的好友申请包的处理" />
+    <MESSAGE value="登录返回的是自己的信息，然后Client的login.py可以获得自己的id(self_id)" />
+    <option name="LAST_COMMIT_MESSAGE" value="登录返回的是自己的信息，然后Client的login.py可以获得自己的id(self_id)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -291,5 +319,6 @@
     <SUITE FILE_PATH="coverage/Server_py$main.coverage" NAME="main 覆盖结果" MODIFIED="1653721893815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
     <SUITE FILE_PATH="coverage/main_py$TestServer.coverage" NAME="TestServer 覆盖结果" MODIFIED="1653747066673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
     <SUITE FILE_PATH="coverage/main_py$main.coverage" NAME="main 覆盖结果" MODIFIED="1654853242498" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
+    <SUITE FILE_PATH="coverage/main_py$test.coverage" NAME="test 覆盖结果" MODIFIED="1654947761318" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
   </component>
 </project>

@@ -4,12 +4,13 @@ import MessageQueue
 import serverModule
 import json
 
-# 自己的id，默认未登录是-1
-self_id = -1
 
 class LoginInterface(QtWidgets.QMainWindow):
     switch_to_signup_window = QtCore.pyqtSignal()
     switch_to_main_window=QtCore.pyqtSignal()
+
+    # 自己的id，默认未登录是-1
+    self_id = -1
     def __init__(self):
         super().__init__()
         uic.loadUi("login.ui", self)
