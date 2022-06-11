@@ -4,12 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="给在线好友发送消息，一直提醒未在线。。。">
+    <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="变更">
+      <change afterPath="$PROJECT_DIR$/MyQQ/Client/MessageQueue.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MyQQ/Client/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Server.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/TestClient.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/TestClient.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/readme.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/Server.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/SqlServer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/TestClient.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/TestClient2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/readme.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +30,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -42,13 +48,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-  </component>
-  <component name="RunManager" selected="Python.TestClient">
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Python.a">
     <configuration name="TestClient" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="MyQQ" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -93,6 +98,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="a" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="MyQQ" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/MyQQ/Server" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MyQQ/Server/a.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="MyQQ" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -117,8 +143,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
+        <item itemvalue="Python.a" />
         <item itemvalue="Python.TestClient2" />
+        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -134,10 +161,7 @@
       <workItem from="1654396328893" duration="21055000" />
       <workItem from="1654525398504" duration="600000" />
       <workItem from="1654583236677" duration="677000" />
-      <workItem from="1654609881092" duration="14432000" />
-      <workItem from="1654628993769" duration="539000" />
-      <workItem from="1654673469159" duration="612000" />
-      <workItem from="1654674100579" duration="2029000" />
+      <workItem from="1654609881092" duration="4236000" />
     </task>
     <task id="LOCAL-00001" summary="添加好友相关模块">
       <created>1654401375140</created>
@@ -167,56 +191,7 @@
       <option name="project" value="LOCAL" />
       <updated>1654428966977</updated>
     </task>
-    <task id="LOCAL-00005" summary="添加给好友发送消息模块，两个客户端运行出错问题">
-      <created>1654614239053</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1654614239053</updated>
-    </task>
-    <task id="LOCAL-00006" summary="添加给好友发送消息模块，修复两个客户端运行出错问题">
-      <created>1654624074375</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1654624074375</updated>
-    </task>
-    <task id="LOCAL-00007" summary="添加给好友发送消息模块，修复两个客户端运行出错问题">
-      <created>1654625572587</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1654625572587</updated>
-    </task>
-    <task id="LOCAL-00008" summary="添加给好友发送消息模块，修复两个客户端运行出错问题">
-      <created>1654625641257</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1654625641257</updated>
-    </task>
-    <task id="LOCAL-00009" summary="添加给好友发送消息模块，修复两个客户端运行出错问题">
-      <created>1654625847101</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1654625847101</updated>
-    </task>
-    <task id="LOCAL-00010" summary="添加给好友发送消息模块，修复两个客户端运行出错问题">
-      <created>1654626212897</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1654626212897</updated>
-    </task>
-    <task id="LOCAL-00011" summary="给在线好友发送消息，一直提醒未在线。。。">
-      <created>1654628528031</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1654628528031</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,20 +212,10 @@
     <MESSAGE value="添加好友相关模块" />
     <MESSAGE value="每个添加好友的模块都有返回值且main中能获取自己的id" />
     <MESSAGE value="添加好友、获取好友列表模块测试通过" />
-    <MESSAGE value="添加给好友发送消息模块，两个客户端运行出错问题" />
-    <MESSAGE value="添加给好友发送消息模块，修复两个客户端运行出错问题" />
-    <MESSAGE value="给在线好友发送消息，一直提醒未在线。。。" />
-    <option name="LAST_COMMIT_MESSAGE" value="给在线好友发送消息，一直提醒未在线。。。" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加好友、获取好友列表模块测试通过" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MyQQ/main.py</url>
-          <line>18</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -259,12 +224,5 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/main_py$TestClient.coverage" NAME="TestClient 覆盖结果" MODIFIED="1654676126604" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
-    <SUITE FILE_PATH="coverage/main_py$TestClient2.coverage" NAME="TestClient2 覆盖结果" MODIFIED="1654629098198" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
-    <SUITE FILE_PATH="coverage/Server_py$main.coverage" NAME="main 覆盖结果" MODIFIED="1653721893815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
-    <SUITE FILE_PATH="coverage/main_py$TestServer.coverage" NAME="TestServer 覆盖结果" MODIFIED="1653747066673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
-    <SUITE FILE_PATH="coverage/main_py$main.coverage" NAME="main 覆盖结果" MODIFIED="1654676123334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
   </component>
 </project>
