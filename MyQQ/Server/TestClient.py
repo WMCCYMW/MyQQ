@@ -1,5 +1,5 @@
 import socket
-import time
+import datetime
 import json
 from threading import Thread
 
@@ -64,7 +64,8 @@ class SendRequestHandler(Thread):
                         '''
                         friend_id = "请前端返回好友id以发起私聊"
                         message = input("请输入发送内容：")
-                        self.send_to_friend(friend_id, message)
+                        now_time = datetime.datetime.now()
+                        self.send_to_friend(friend_id, now_time, message)
 
 
         except Exception as e:
@@ -119,8 +120,8 @@ class SendRequestHandler(Thread):
         client.send(pkt_json.encode())
 
     # 给好友发送信息
-    def send_to_friend(self, friend_id, message):
-        pkt = ("send_to_friend", friend_id, message)
+    def send_to_friend(self, friend_id, now_time, message):
+        pkt = ("send_to_friend", friend_id, now_time, message)
         pkt_json = json.dumps(pkt)
         client.send(pkt_json.encode())
 
