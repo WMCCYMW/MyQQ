@@ -16,7 +16,7 @@ def Reciver(clientsocket):
             time = response[2] # 发送时间
             message = response[3] # 消息内容
             file = open("/messages/"+ login.LoginInterface.self_id +"/"+ friend_id +"_messages", "a") # 历史消息文件格式： /messages/selfId/friendId_messages
-            file.write("<" + time + ">" + message + "\n")
+            file.write("<1><" + time + ">" + message + "\n") # 第一个<1>代表是好友发送的
             file.flush()
             file.close()
             '''

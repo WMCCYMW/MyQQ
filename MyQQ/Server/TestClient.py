@@ -214,9 +214,9 @@ class RecvRespHandler(Thread):
                 # 接收到了来自好友的私聊
                 elif request == "receive_from_friend": # 已经在Server内完成对request的改名
                     friend_name = response[1] # message的来源
-                    print("接收来自'" + friend_name + "'的密语：" + response[2])
+                    print("接收来自'" + friend_name + "'的密语：" + response[2]) # 不用这句话了，搞个小红点
                     '''
-                        这个地方有个问题，要是friend改名了咋办
+                        这个地方有个问题，要是friend改名了咋办（已经通过小红点解决）
                         本来想传的是friend_id的，但是不知道前端是否有办法可以实时通过id得到好友列表中的name（再写一个函数用于实时通过id查name？）
                     '''
 

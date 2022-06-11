@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="登录返回的是自己的信息，然后Client的login.py可以获得自己的id(self_id)">
-      <change beforePath="$PROJECT_DIR$/MyQQ/Client/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/login.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/serverModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/serverModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/Server/TestClient.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/TestClient.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -270,7 +271,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654947206858</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="登录返回的是自己的信息，然后Client的login.py可以获得自己的id(self_id)">
+      <created>1654947948278</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1654947948278</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,6 +327,6 @@
     <SUITE FILE_PATH="coverage/Server_py$main.coverage" NAME="main 覆盖结果" MODIFIED="1653721893815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
     <SUITE FILE_PATH="coverage/main_py$TestServer.coverage" NAME="TestServer 覆盖结果" MODIFIED="1653747066673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
     <SUITE FILE_PATH="coverage/main_py$main.coverage" NAME="main 覆盖结果" MODIFIED="1654853242498" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
-    <SUITE FILE_PATH="coverage/main_py$test.coverage" NAME="test 覆盖结果" MODIFIED="1654947761318" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
+    <SUITE FILE_PATH="coverage/main_py$test.coverage" NAME="test 覆盖结果" MODIFIED="1654947897458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
   </component>
 </project>
