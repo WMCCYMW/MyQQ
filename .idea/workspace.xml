@@ -4,17 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="socket间发送的消息全部改为了包的形式">
+    <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="收到好友私聊包、待确定的好友申请包的处理">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/Client/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/login.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/serverModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/serverModule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Client/signup.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/signup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Server.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/Server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/SqlServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/SqlServer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/TestClient.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/TestClient.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/TestClient2.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/TestClient2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/readme.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/Server/Server.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/Server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/Server/SqlServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/SqlServer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654680699222</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="收到好友私聊包、待确定的好友申请包的处理">
+      <created>1654946004153</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1654946004153</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -267,7 +269,8 @@
     <MESSAGE value="给在线好友发送消息，一直提醒未在线。。。" />
     <MESSAGE value="包" />
     <MESSAGE value="socket间发送的消息全部改为了包的形式" />
-    <option name="LAST_COMMIT_MESSAGE" value="socket间发送的消息全部改为了包的形式" />
+    <MESSAGE value="收到好友私聊包、待确定的好友申请包的处理" />
+    <option name="LAST_COMMIT_MESSAGE" value="收到好友私聊包、待确定的好友申请包的处理" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

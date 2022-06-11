@@ -15,13 +15,14 @@ class LoginHandler(object):
             db.close() # 关闭连接
             if password == result[2]: # 如果密码相符
                 # print(name + "欢迎登录！")
-                return 1
+                # 返回自己的id和name
+                return result
             else:
                 # print("密码错误，登录失败！")
-                return 2
+                return "密码错误"
         except:
             # print("登录失败，未知错误！")
-            return 3
+            return "数据库错误"
 
     @staticmethod
     def create_new_user(name, password): # 创建新用户

@@ -22,11 +22,15 @@ def LoginSever(handler, pkt):
     # 获取name和password
     name = pkt[1]
     password = pkt[2]
-    isSucceed = SqlServer.LoginHandler.login_check(name, password)
-    response = ("login", str(isSucceed))
+    result = SqlServer.LoginHandler.login_check(name, password)
+    response = ("login", result)
     response_json = json.dumps(response)
     handler.connection.sendall(bytes(response_json,"utf-8"))
-    return [name, isSucceed]
+    if result != "密码错误" or result != "数据库错误":
+        return [name, 1]
+    else:
+        return [name, "登录失败"]
+
 
 # 注册函数
 def RegistSever(handler, pkt):

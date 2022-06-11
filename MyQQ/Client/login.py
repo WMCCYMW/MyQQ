@@ -3,6 +3,10 @@ import general
 import MessageQueue
 import serverModule
 import json
+
+# 自己的id，默认未登录是-1
+self_id = -1
+
 class LoginInterface(QtWidgets.QMainWindow):
     switch_to_signup_window = QtCore.pyqtSignal()
     switch_to_main_window=QtCore.pyqtSignal()
@@ -22,11 +26,13 @@ class LoginInterface(QtWidgets.QMainWindow):
         serverModule.ss.sendall(pkt_json.encode())
         while True :
             response=MessageQueue.mq.get(True)
-            if(response[0]=='login',response[1]=='成功'):
-                self.switch_to_main_window()
-                break
-            elif(response[0]=='login',response[1]!='成功'):
+            if(response[0] == "login" and (response[1] == "密码错误" or response[1] == "数据库错误")):
                 print(response[1])
+                break
+            else:
+                # 登录成功，更新自己的id
+                self.self_id = response[1][0]
+                self.switch_to_main_window()
                 break
             MessageQueue.mq.put(response,True)
 
