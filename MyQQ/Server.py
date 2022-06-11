@@ -1,5 +1,4 @@
 import json
-import math
 import SqlServer
 import math
 def recvc_string(handler):
@@ -21,11 +20,8 @@ def send_string(socket,content):
 # 检测登录函数
 def LoginSever(handler, pkt):
     # 获取name和password
-    # name = str(handler.connection.recv(1024),encoding="utf-8")
     name = pkt[1]
-    # password = str(handler.connection.recv(1024),encoding="utf-8")
     password = pkt[2]
-    # print(name + "\n" + password + "\n")
     isSucceed = SqlServer.LoginHandler.login_check(name, password)
     response = ("login", str(isSucceed))
     response_json = json.dumps(response)
@@ -35,9 +31,7 @@ def LoginSever(handler, pkt):
 # 注册函数
 def RegistSever(handler, pkt):
     # 获取name和password
-    # name = str(handler.connection.recv(1024).decode())
     name = pkt[1]
-    # password = str(handler.connection.recv(1024).decode())
     password = pkt[2]
     isSucceed = SqlServer.LoginHandler.create_new_user(name, password)
     response = ("register", str(isSucceed))
@@ -56,69 +50,72 @@ def search_one_by_id(id):
 
 
 # 发送好友申请
-def add_friend(handler):
+def add_friend(handler, pkt):
     applicant = handler.id
-    recipient_name = str(handler.connection.recv(1024).decode())
+    recipient_name = pkt[1]
     recipient = search_one_by_name(recipient_name)[0]
+    response = list()
+    response.append("add_friend")
     result = SqlServer.FriendApplicantHandler.application(applicant, recipient)
-    handler.connection.sendall(bytes(str(result), "utf-8"))
+    response.append(result)
+    response_json = json.dumps(response)
+    handler.connection.sendall(bytes(response_json, "utf-8"))
 
 # 处理好友申请
-def handle_friend_application(handler, args):
+def handle_friend_application(handler, pkt):
+    args = int(pkt[1])
     recipient = handler.id
-    applicant = int(str(handler.connection.recv(1024).decode()))
+    applicant = int(pkt[2])
     result = SqlServer.FriendApplicantHandler.handle_it(applicant, recipient, args)
-    handler.connection.sendall(bytes(str(result), "utf-8"))
+    response = ("handle_friend_application", result)
+    response_json = json.dumps(response)
+    handler.connection.sendall(bytes(response_json, "utf-8"))
 
 
 # 获取好友列表
-def get_list(handler, state):
+def get_friend_list(handler, pkt):
+    state = pkt[1]
     id = handler.id
     result = SqlServer.FriendApplicantHandler.get_friend_list(id, state)
+    response = list()
+    response.append("get_friend_list")
     if result == 3:
-        handler.connection.sendall(bytes(str("数据库错误"), "utf-8"))
+        response.append("数据库错误")
     else:
-        handler.connection.sendall(bytes(str("成功"), "utf-8"))
+        response.append("成功")
         for subRes in result:
             if (subRes[0] == handler.id):
                 friend = search_one_by_id(subRes[1])
-                friend_name = friend[1]
-                handler.connection.sendall(bytes(str(friend_name), "utf-8"))
             else:
-                friend_name = search_one_by_id(subRes[0])[1]
-                handler.connection.sendall(bytes(str(friend_name), "utf-8"))
-        handler.connection.sendall(bytes(str("结束"), "utf-8"))  # 要是有个name叫做"结束"就完蛋了。。。
+                friend = search_one_by_id(subRes[0])
+            response.append(friend)
+        response_json = json.dumps(response)
+        handler.connection.sendall(bytes(response_json, "utf-8"))
 
 # 查找用户
 def find_user(handler, pkt):
     result = search_one_by_name(pkt[1])
-    response = list("search_user")
+    response = list()
+    response.append("search_user")
     if result == 3:
-        # handler.connection.sendall(bytes(str("数据库错误"), "utf-8"))
         response.append("数据库错误")
     elif result is None:
-        # handler.connection.sendall(bytes(str("无匹配项"), "utf-8"))
         response.append("无匹配项")
     else:
-        # handler.connection.sendall(bytes(str("成功"), "utf-8"))
         response.append("成功")
-        response.append(result[0])
-        response.append(result[1])
-        # handler.connection.sendall(bytes(str(result[0]), "utf-8"))  # 发送id
-        # handler.connection.sendall(bytes(str(result[1]), "utf-8"))  # 发送name
+        response.append(result)
         response_json = json.dumps(response)
         handler.connection.sendall(bytes(response_json, "utf-8"))
 
 
 # 给好友发送消息
-def send_to_friend(handler, friend_socket):
-    message = str(handler.id) + ":" + recvc_string(handler)
-    send_string(friend_socket, message)
-    handler.connection.sendall(bytes(str("已发送：" + message), "utf-8"))
+def send_to_friend(handler, friend_socket, pkt):
+    # 把pkt[1]，也就是目标改为来源；pkt[0]改为"receive_from_friend"
+    pkt[1] = handler.name
+    pkt[0] = "receive_from_friend"
+    pkt_json = json.dumps(pkt)
+    friend_socket.sendall(bytes(pkt_json, encoding='utf-8'))  # 发送消息
 
-# 接收好友的消息
-def receive_from_friend(handler, friend_socket):
-    message = str(handler.connection.recv(1024).decode())
 
 
 
