@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="登录返回的是自己的信息，然后Client的login.py可以获得自己的id(self_id)">
+    <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="最新版本">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Client/chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/chat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Client/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Client/fileWriter.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Client/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Client/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Client/mainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/mainWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Client/serverModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/serverModule.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +216,7 @@
       <workItem from="1655137310270" duration="164000" />
       <workItem from="1655137497470" duration="55000" />
       <workItem from="1655137593883" duration="63000" />
-      <workItem from="1655137678581" duration="5907000" />
+      <workItem from="1655137678581" duration="6707000" />
     </task>
     <task id="LOCAL-00001" summary="添加好友相关模块">
       <created>1654401375140</created>
@@ -337,7 +330,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654947948278</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="最新版本">
+      <created>1655143875802</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1655143875802</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -377,7 +377,8 @@
     <MESSAGE value="socket间发送的消息全部改为了包的形式" />
     <MESSAGE value="收到好友私聊包、待确定的好友申请包的处理" />
     <MESSAGE value="登录返回的是自己的信息，然后Client的login.py可以获得自己的id(self_id)" />
-    <option name="LAST_COMMIT_MESSAGE" value="登录返回的是自己的信息，然后Client的login.py可以获得自己的id(self_id)" />
+    <MESSAGE value="最新版本" />
+    <option name="LAST_COMMIT_MESSAGE" value="最新版本" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -421,12 +422,12 @@
     <SUITE FILE_PATH="coverage/main_py$main.coverage" NAME="main 覆盖结果" MODIFIED="1655112792550" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
     <SUITE FILE_PATH="coverage/main_py$main__2_.coverage" NAME="main (2) 覆盖结果" MODIFIED="1655117139502" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ/Client" />
     <SUITE FILE_PATH="coverage/main_py$test.coverage" NAME="test 覆盖结果" MODIFIED="1654947897458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
-    <SUITE FILE_PATH="coverage/general_py$test__1_.coverage" NAME="test (1) 覆盖结果" MODIFIED="1655142693279" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ/Client" />
+    <SUITE FILE_PATH="coverage/general_py$test__1_.coverage" NAME="test (1) 覆盖结果" MODIFIED="1655144440765" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ/Client" />
     <SUITE FILE_PATH="coverage/main_py$c.coverage" NAME="c 覆盖结果" MODIFIED="1654886883289" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
     <SUITE FILE_PATH="coverage/main_py$main__1_.coverage" NAME="main (1) 覆盖结果" MODIFIED="1655115162541" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ/Server" />
     <SUITE FILE_PATH="coverage/main_py$TestServer.coverage" NAME="TestServer 覆盖结果" MODIFIED="1653747066673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ" />
     <SUITE FILE_PATH="coverage/general_py$main__2_.coverage" NAME="main (2) 覆盖结果" MODIFIED="1655140101710" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ/Server" />
-    <SUITE FILE_PATH="coverage/general_py$main__1_.coverage" NAME="main (1) 覆盖结果" MODIFIED="1655143633261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ/Client" />
+    <SUITE FILE_PATH="coverage/general_py$main__1_.coverage" NAME="main (1) 覆盖结果" MODIFIED="1655143668418" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ/Client" />
     <SUITE FILE_PATH="coverage/main_py$Server.coverage" NAME="Server 覆盖结果" MODIFIED="1655112783913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/MyQQ/Server" />
   </component>
 </project>

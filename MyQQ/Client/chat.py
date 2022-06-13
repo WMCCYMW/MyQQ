@@ -29,14 +29,14 @@ class ChatInterface(QtWidgets.QMainWindow):
 
     def load_chat_history(self):
         # 判断文件夹存在，若不存在，则新建
-        if not os.path.exists("\messages\\"+str(login.LoginInterface.self_id)):
-            os.makedirs("\messages\\"+str(login.LoginInterface.self_id))
+        if not os.path.exists("messages\\"+str(login.LoginInterface.self_id)):
+            os.makedirs("messages\\"+str(login.LoginInterface.self_id))
         # 判断文件
-        if not os.path.exists("\messages\\" + str(login.LoginInterface.self_id) + "\\" + str(self.friend_id) + "_messages.txt"):
-            file = open("\messages\\"+ str(login.LoginInterface.self_id) +"\\"+ str(self.friend_id) +"_messages.txt", "a")
+        if not os.path.exists("messages\\" + str(login.LoginInterface.self_id) + "\\" + str(self.friend_id) + "_messages.txt"):
+            file = open("messages\\"+ str(login.LoginInterface.self_id) +"\\"+ str(self.friend_id) +"_messages.txt", "a")
             file.close()
         #在这里读取文件:
-        file = open("\messages\\" + str(login.LoginInterface.self_id) + "\\" + str(self.friend_id) + "_messages.txt", "r")  # 历史消息文件格式： /messages/selfId/friendId_messages.txt
+        file = open("messages\\" + str(login.LoginInterface.self_id) + "\\" + str(self.friend_id) + "_messages.txt", "r")  # 历史消息文件格式： /messages/selfId/friendId_messages.txt
         line = file.readline()
         while line != '':
             # 进行字符串的替换
@@ -90,7 +90,7 @@ class ChatInterface(QtWidgets.QMainWindow):
 
     def write_to_file(self, message):
         time = datetime.datetime.now()
-        file = open("\messages\\" + str(login.LoginInterface.self_id) + "\\" + str(self.friend_id) + "_messages.txt", "a")  # 历史消息文件格式： /messages/selfId/friendId_messages
+        file = open("messages\\" + str(login.LoginInterface.self_id) + "\\" + str(self.friend_id) + "_messages.txt", "a")  # 历史消息文件格式： /messages/selfId/friendId_messages
         file.write("<0><" + time.strftime("%Y-%m-%d %H:%M:%S") + ">:\n\t" + message + "\n")  # 第一个<1>代表是好友发送的：<1><time>\n\t你好 <0><time>我发的
         file.close()
 
