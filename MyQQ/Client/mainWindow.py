@@ -13,9 +13,11 @@ class MainWindow(QtWidgets.QMainWindow):
     friends_new_message_status = []
     current_friend_page = 0
     open_chat_window = QtCore.pyqtSignal(str,int)
+    username = ""
 
     def __init__(self, username: str,userid):
         super().__init__()
+        self.username = username
         uic.loadUi("mainWindow.ui", self)
         self.user_label.setText("欢迎" + username)
         #发送获取好友列表请求

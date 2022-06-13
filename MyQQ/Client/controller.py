@@ -48,6 +48,7 @@ class Controller:
 
     def open_chat_window(self, friend_name: str,friend_id:int):
         self.chat_windows[friend_name] = chat.ChatInterface(friend_name,friend_id)
+        self.chat_windows[friend_name].message_reminder.connect(self.chat_windows[friend_name].flush_chat_history)
         self.chat_windows[friend_name].show()
 
     def on_received_message(self, receiver: str, message: str, sender: str):

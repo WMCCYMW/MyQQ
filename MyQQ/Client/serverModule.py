@@ -17,11 +17,11 @@ def Reciver(clientsocket):
             friend_id = response[1] # 来源id
             time = response[2] # 发送时间
             message = response[3] # 消息内容
-            file = open("/messages/"+ login.LoginInterface.self_id +"/"+ friend_id +"_messages", "a") # 历史消息文件格式： /messages/selfId/friendId_messages
-            file.write("<1><" + time + ">" + message + "\n") # 第一个<1>代表是好友发送的
+            file = open("\messages\\"+ str(login.LoginInterface.self_id) +"\\"+ friend_id +"_messages.txt", "a") # 历史消息文件格式： /messages/selfId/friendId_messages
+            file.write("<1><" + time + ">:\n\t" + message + "\n") # 第一个<1>代表是好友发送的：<1><time>\n\t你好 <0><time>我发的
             #.flush()
             file.close()
-                #提醒在对应的位置亮红点
+            #提醒在对应的位置亮红点
             mainWindow.MainWindow.on_receive_new_message(friend_id)
             #自动刷新聊天框
             chat.ChatInterface.message_reminder.emit(friend_id)
