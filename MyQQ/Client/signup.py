@@ -9,6 +9,7 @@ class SignupInterface(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi("signup.ui", self)
+
         self.signup.clicked.connect(self.on_signup_button_clicked)
         self.password.setEchoMode(QtWidgets.QLineEdit.Password)
         self.confirmPassword.setEchoMode(QtWidgets.QLineEdit.Password)
@@ -21,18 +22,19 @@ class SignupInterface(QtWidgets.QMainWindow):
             print("用户名或密码不可为空，请重新输入")
         elif password == confirm_password:
            # print(signup_id, password)
-           pkt=("register",signup_name,password)
-           pkt_json=json.dumps(pkt)
-           serverModule.ss.sendall(pkt_json.encode())
-           while True:
-               response=MessageQueue.mq.get(True)
-               if(response[0]=='register'and response[1]=='1'):
-                   self.switch_to_login()
-                   break
-               elif(response[0]=='register'and response[1]!='1'):
-                   print("注册失败，请重试")
-                   break
-               MessageQueue.mq.put(response,True)
+            pkt=("register",signup_name,password)
+            pkt_json=json.dumps(pkt)
+            serverModule.ss.send(pkt_json.encode())
+            while True:
+               if not MessageQueue.mq.empty():
+                    response=MessageQueue.mq.get()
+                    if(response[0]=='register'and response[1]=='1'):
+                        self.switch_to_login()
+                        break
+                    elif(response[0]=='register'and response[1]!='1'):
+                        print("注册失败，请重试")
+                        break
+                    MessageQueue.mq.put(response,True)
         else:
             print("两次输入密码不一致，请重新输入")
 

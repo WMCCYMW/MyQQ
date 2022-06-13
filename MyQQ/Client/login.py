@@ -7,7 +7,7 @@ import json
 
 class LoginInterface(QtWidgets.QMainWindow):
     switch_to_signup_window = QtCore.pyqtSignal()
-    switch_to_main_window=QtCore.pyqtSignal()
+    switch_to_main_window=QtCore.pyqtSignal(str,int)
 
     # 自己的id，默认未登录是-1
     self_id = -1
@@ -32,8 +32,8 @@ class LoginInterface(QtWidgets.QMainWindow):
                 break
             else:
                 # 登录成功，更新自己的id
-                self.self_id = response[1][0]
-                self.switch_to_main_window()
+                self_id = response[1][0]
+                self.switch_to_main(user_id,self_id)
                 break
             MessageQueue.mq.put(response,True)
 
@@ -41,9 +41,11 @@ class LoginInterface(QtWidgets.QMainWindow):
     def on_signup_button_clicked(self):
         self.switch_to_signup()
 
+
+
     # 向上级槽传递切换界面信号
     def switch_to_signup(self):
         self.switch_to_signup_window.emit()
 
-    def switch_to_main(self):
-        self.switch_to_main_window.emit()
+    def switch_to_main(self,user_id:str,self_id):
+        self.switch_to_main_window.emit(user_id,self_id)
