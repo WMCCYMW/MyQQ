@@ -2,16 +2,24 @@ from PyQt5 import QtWidgets, uic, QtCore, QtGui
 
 
 class ChatInterface(QtWidgets.QMainWindow):
+    message_reminder=QtCore.pyqtSignal(int)
 
-    def __init__(self, friend_name: str):
+    def __init__(self, friend_name: str,friend_id:int):
         super().__init__()
         uic.loadUi("chat.ui", self)
         self.friend_name = friend_name
+        self.friend_id=friend_id
 
         self.sendButton.clicked.connect(self.on_send_button_clicked)
         self.clearButton.clicked.connect(self.on_clear_button_clicked)
         self.load_chat_history()
+        ChatInterface.message_reminder.connect(self.flush_chat_history())
         self.friendName.setText(friend_name)
+        #刷新聊天记录
+    def flush_chat_history(self,friend_id):
+        if friend_id==self.friend_id:
+            self.messageBrowser.clear()
+            self.load_chat_history()
 
     def load_chat_history(self):
         #在这里读取文件

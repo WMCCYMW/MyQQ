@@ -12,7 +12,7 @@ class MainWindow(QtWidgets.QMainWindow):
                          "f16", "f17", "f18", "f19", "f20", "f21", "f22"]
     friends_new_message_status = []
     current_friend_page = 0
-    open_chat_window = QtCore.pyqtSignal(str)
+    open_chat_window = QtCore.pyqtSignal(str,int)
 
     def __init__(self, username: str,userid):
         super().__init__()
@@ -23,7 +23,7 @@ class MainWindow(QtWidgets.QMainWindow):
         pkt_json = json.dumps(pkt)
         serverModule.ss.send(pkt_json.encode())
         #接收好友列表
-        self.friends_name_list.clear()
+        MainWindow.friends_name_list.clear()
         while True:
             response = MessageQueue.mq.get(True)
             if (response[0] == "get_friend_list" and (response[1] == "无匹配项" or response[1] == "数据库错误")):
@@ -32,11 +32,11 @@ class MainWindow(QtWidgets.QMainWindow):
             else:
                 # 返回成功，更新列表
                 for i in response[2:]:
-                    self.friends_name_list.append(i)
+                    MainWindow.friends_name_list.append(i)
                 break
             MessageQueue.mq.put(response, True)
         for i in range(self.friends_name_list.__len__()):
-            self.friends_new_message_status.append(True)
+            MainWindow.friends_new_message_status.append(False)
         self.load_friend()
         self.prev_page.clicked.connect(self.on_prev_button_clicked)
         self.next_page.clicked.connect(self.on_next_button_clicked)
@@ -89,12 +89,12 @@ class MainWindow(QtWidgets.QMainWindow):
                     friend_button_map[i].setText("")
 
     def on_friend_button_clicked(self, friend_pos: int):
-        print("friend position in list:" + self.friends_name_list[friend_pos])
-        self.friends_new_message_status[friend_pos] = False
+        print("friend position in list:" + MainWindow.friends_name_list[friend_pos][1])
+        MainWindow.friends_new_message_status[friend_pos] = False
         self.sender().setStyleSheet("background-color: white")
         QtWidgets.QApplication.processEvents()
         self.show()
-        self.open_chat_window.emit(self.friends_name_list[friend_pos][1])
+        self.open_chat_window.emit(self.friends_name_list[friend_pos][1],self.friends_name_list[friend_pos][0])
 
     def on_next_button_clicked(self):
         if self.friends_name_list.__len__() > (self.current_friend_page + 1) * 10:
@@ -110,7 +110,7 @@ class MainWindow(QtWidgets.QMainWindow):
             QtWidgets.QApplication.processEvents()
             self.show()
 
-    def on_receive_new_message(self, friend_name: str):
-        for i, (f_name, f_status) in enumerate(zip(self.friends_name_list, self.friends_new_message_status)):
-            if f_name == friend_name:
-                self.friends_new_message_status[i] = True
+    def on_receive_new_message(friend_id: int):
+        for i, (f, f_status) in enumerate(zip(MainWindow.friends_name_list, MainWindow.friends_new_message_status)):
+            if f[0] == friend_id:
+                MainWindow.friends_new_message_status[i] = True

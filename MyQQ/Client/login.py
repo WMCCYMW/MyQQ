@@ -32,7 +32,7 @@ class LoginInterface(QtWidgets.QMainWindow):
                 break
             else:
                 # 登录成功，更新自己的id
-                self_id = response[1][0]
+                LoginInterface.self_id = response[1][0]
                 self.switch_to_main(user_id,self_id)
                 break
             MessageQueue.mq.put(response,True)

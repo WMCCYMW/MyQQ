@@ -46,8 +46,8 @@ class Controller:
 
 
 
-    def open_chat_window(self, friend_name: str):
-        self.chat_windows[friend_name] = chat.ChatInterface(friend_name)
+    def open_chat_window(self, friend_name: str,friend_id:int):
+        self.chat_windows[friend_name] = chat.ChatInterface(friend_name,friend_id)
         self.chat_windows[friend_name].show()
 
     def on_received_message(self, receiver: str, message: str, sender: str):
