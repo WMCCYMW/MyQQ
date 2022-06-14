@@ -6,7 +6,7 @@ import mainWindow
 import chat
 ss=socket.socket(socket.AF_INET)
 
-def Reciver(clientsocket):
+def Reciver(clientsocket,cont):
     while True:
         response_json= str(clientsocket.recv(1024),encoding='utf-8')
         response=json.loads(response_json)
@@ -24,7 +24,7 @@ def Reciver(clientsocket):
             #提醒在对应的位置亮红点
             mainWindow.MainWindow.on_receive_new_message(friend_id)
             #自动刷新聊天框
-            chat.ChatInterface.message_reminder.emit(friend_id)
+            cont.chat_windows[friend_id].message_reminder.emit(friend_id)
 
         elif response_name == "get_friend_application": # 如果是好友申请信息，则给个小红点
             '''

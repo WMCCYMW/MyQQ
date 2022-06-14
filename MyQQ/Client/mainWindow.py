@@ -116,3 +116,9 @@ class MainWindow(QtWidgets.QMainWindow):
         for i, (f, f_status) in enumerate(zip(MainWindow.friends_name_list, MainWindow.friends_new_message_status)):
             if f[0] == friend_id:
                 MainWindow.friends_new_message_status[i] = True
+
+    def on_search_button_clicked(self):
+        self.switch_to_search_window.emit()
+
+    def on_apply_button_clicked(self):
+        self.switch_to_friend_req_window.emit()
