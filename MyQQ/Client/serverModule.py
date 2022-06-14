@@ -29,7 +29,7 @@ def Reciver(clientsocket,cont):
         elif response_name == "get_friend_application": # 如果是好友申请信息，则给个小红点
             '''
                 在对应的位置亮小红点
-           '''
+            '''
         else:
             #其余的，则加入消息队列
             MessageQueue.mq.put(response)

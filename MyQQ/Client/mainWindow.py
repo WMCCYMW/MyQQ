@@ -14,6 +14,8 @@ class MainWindow(QtWidgets.QMainWindow):
     current_friend_page = 0
     open_chat_window = QtCore.pyqtSignal(str,int)
     username = ""
+    switch_to_search_window = QtCore.pyqtSignal()
+    switch_to_friend_req_window = QtCore.pyqtSignal()
 
     def __init__(self, username: str,userid):
         super().__init__()
@@ -42,6 +44,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.load_friend()
         self.prev_page.clicked.connect(self.on_prev_button_clicked)
         self.next_page.clicked.connect(self.on_next_button_clicked)
+        self.searchButton.clicked.connect(self.on_search_button_clicked)
+        self.viewApplyButton.clicked.connect(self.on_apply_button_clicked)
 
     def load_friend(self):
         print(self.current_friend_page)

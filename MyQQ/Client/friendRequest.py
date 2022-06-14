@@ -1,6 +1,9 @@
+import json
 from functools import partial
 
 from PyQt5 import QtWidgets, uic, QtCore
+
+from MyQQ.Client import serverModule
 
 
 class FriendReqInterface(QtWidgets.QMainWindow):
@@ -39,7 +42,7 @@ class FriendReqInterface(QtWidgets.QMainWindow):
                     self.decline_button_map[i].setVisible(False)
                     self.friend_label_map[i].setText("已处理")
                     continue
-                self.friend_label_map[i].setText(self.friend_request_list[self.current_request_page * 6 + i])
+                self.friend_label_map[i].setText(self.friend_request_list[self.current_request_page * 6 + i][1])
                 try:
                     self.add_button_map[i].clicked.disconnect()
                 except TypeError:
@@ -64,7 +67,7 @@ class FriendReqInterface(QtWidgets.QMainWindow):
                         self.decline_button_map[i].setVisible(False)
                         self.friend_label_map[i].setText("已处理")
                         continue
-                    self.friend_label_map[i].setText(self.friend_request_list[self.current_request_page * 6 + i])
+                    self.friend_label_map[i].setText(self.friend_request_list[self.current_request_page * 6 + i][1])
                     try:
                         self.add_button_map[i].clicked.disconnect()
                     except TypeError:
@@ -96,27 +99,49 @@ class FriendReqInterface(QtWidgets.QMainWindow):
 
     def on_add_button_clicked(self, request_pos: int):
         # 这里插入接受请求代码
+        pkt = ("handle_friend_application", '1',self.friend_request_list[request_pos][0])
+        pkt_json = json.dumps(pkt)
+        serverModule.ss.sendall(pkt_json.encode())
         pos_on_page = request_pos % 6
         print("added friend request pos:" + str(request_pos))
         #
-        self.add_button_map[pos_on_page].setVisible(False)
-        self.decline_button_map[pos_on_page].setVisible(False)
-        self.friend_label_map[pos_on_page].setText("已接受")
-        self.has_processed_friend_req[request_pos] = True
-        QtWidgets.QApplication.processEvents()
-        self.show()
-
+        while True :
+            response=MessageQueue.mq.get(True)
+            if(response[0] == "handle_friend_application" and (response[1] == "3" )):
+                self.show_error_message("数据库错误")
+                break
+            else:
+                self.add_button_map[pos_on_page].setVisible(False)
+                self.decline_button_map[pos_on_page].setVisible(False)
+                self.friend_label_map[pos_on_page].setText("已接受")
+                self.has_processed_friend_req[request_pos] = True
+                QtWidgets.QApplication.processEvents()
+                self.show()
+                break
+            MessageQueue.mq.put(response,True)
     def on_del_button_clicked(self, request_pos: int):
         # 这里插入拒绝请求代码
+        pkt = ("handle_friend_application", '0', self.friend_request_list[request_pos][0])
+        pkt_json = json.dumps(pkt)
+        serverModule.ss.sendall(pkt_json.encode())
         pos_on_page = request_pos % 6
         print("rejected friend request pos:" + str(request_pos))
         #
-        self.add_button_map[pos_on_page].setVisible(False)
-        self.decline_button_map[pos_on_page].setVisible(False)
-        self.friend_label_map[pos_on_page].setText("已拒绝")
-        self.has_processed_friend_req[request_pos] = True
-        QtWidgets.QApplication.processEvents()
-        self.show()
+        while True:
+            response = MessageQueue.mq.get(True)
+            if (response[0] == "handle_friend_application" and (response[1] == "3")):
+                self.show_error_message("数据库错误")
+                break
+            else:
+                self.add_button_map[pos_on_page].setVisible(False)
+                self.decline_button_map[pos_on_page].setVisible(False)
+                self.friend_label_map[pos_on_page].setText("已拒绝")
+                self.has_processed_friend_req[request_pos] = True
+                QtWidgets.QApplication.processEvents()
+                self.show()
+                break
+            MessageQueue.mq.put(response, True)
+
 
     def on_prev_page_button_clicked(self):
         if self.current_request_page > 0:
@@ -134,3 +159,7 @@ class FriendReqInterface(QtWidgets.QMainWindow):
 
     def on_return_button_clicked(self):
         self.switch_to_main_window.emit()
+
+    def show_error_message(self, msg: str):
+        tempBox = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Warning, "警告", msg, QtWidgets.QMessageBox.Cancel)
+        tempBox.exec_()

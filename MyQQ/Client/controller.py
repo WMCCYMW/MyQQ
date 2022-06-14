@@ -1,3 +1,4 @@
+import json
 import sys
 import signup
 import login
@@ -10,6 +11,8 @@ from functools import partial
 
 
 # controller类，实现界面的切换
+from MyQQ.Client import serverModule, MessageQueue
+
 
 class Controller:
     def __init__(self):
@@ -21,6 +24,9 @@ class Controller:
         self.login_window.switch_to_signup_window.connect(self.switch_to_signup)
         self.login_window.switch_to_main_window.connect(self.switch_to_main_window)
         self.chat_windows = {}
+        self.request_list = []
+        self.user_name = ""
+        self.user_id=""
 
 
     # 从注册界面切换到登录界面
@@ -56,6 +62,8 @@ class Controller:
             pass
 
         self.mainWindow = mainWindow.MainWindow(username,userid)
+        self.user_name=username
+        self.user_id=userid
         self.mainWindow.open_chat_window.connect(self.open_chat_window)
         self.mainWindow.switch_to_search_window.connect(self.switch_to_search_window)
         self.mainWindow.switch_to_friend_req_window.connect(self.switch_to_friend_req_window)
@@ -70,13 +78,30 @@ class Controller:
 
     def switch_to_search_window(self):
         self.mainWindow.close()
-        self.searchWindow = search.SearchInterface(self.friend_list)
-        self.searchWindow.switch_to_main_window.connect(partial(self.switch_to_main_window, self.user_name))
+        self.searchWindow = search.SearchInterface(mainWindow.MainWindow.friends_name_list)
+        self.searchWindow.switch_to_main_window.connect(partial(self.switch_to_main_window, self.user_name,self.user_id))
 
     def switch_to_friend_req_window(self):
         self.mainWindow.close()
+        pkt = ("get_friend_list", 0)
+        pkt_json = json.dumps(pkt)
+        serverModule.ss.send(pkt_json.encode())
+        self.request_list.clear()
+        while True :
+            response=MessageQueue.mq.get(True)
+            if(response[0] == "get_friend_list" and (response[1] == "数据库错误" )):
+                self.show_error_message("数据库错误，发送失败")
+                break
+            else:
+                for i in response[2:]:
+                    self.request_list.append(i)
+            MessageQueue.mq.put(response,True)
         self.friendReqWindow = friendRequest.FriendReqInterface(self.request_list)
         self.friendReqWindow.switch_to_main_window.connect(partial(self.switch_to_main_window, self.user_name))
 
     def on_received_message(self, receiver: str, message: str, sender: str):
         self.chat_windows[receiver].on_receive_message(sender, message)
+
+    def show_error_message(self, msg:str):
+        tempBox = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Warning, "警告", msg, QtWidgets.QMessageBox.Cancel)
+        tempBox.exec_()

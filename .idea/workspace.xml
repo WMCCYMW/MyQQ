@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="登录返回的是自己的信息，然后Client的login.py可以获得自己的id(self_id)">
-      <change afterPath="$PROJECT_DIR$/MyQQ/Client/friendRequest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MyQQ/Client/search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+    <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="合并">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Client/friendrequest.ui" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/friendrequest.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/Client/friendRequest.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/friendRequest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/login.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Client/search.ui" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/search.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/Client/mainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/mainWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/Client/mainWindow.ui" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/mainWindow.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/Client/search.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/search.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/serverModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/serverModule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Server/SqlServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/SqlServer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Server/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/main.py" afterDir="false" />
@@ -128,7 +127,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="mainWindow" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="MyQQ" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -136,12 +135,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/MyQQ" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/MyQQ/Client" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="C:\Users\lenovo\Desktop\PythonClass\MyQQ\MyQQ\Server\main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MyQQ/Client/mainWindow.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -197,10 +195,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main (1)" />
-        <item itemvalue="Python.test (1)" />
         <item itemvalue="Python.main (2)" />
+        <item itemvalue="Python.mainWindow" />
+        <item itemvalue="Python.test (1)" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -341,7 +339,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654947948278</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="合并">
+      <created>1655220482612</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1655220482612</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -381,7 +386,8 @@
     <MESSAGE value="socket间发送的消息全部改为了包的形式" />
     <MESSAGE value="收到好友私聊包、待确定的好友申请包的处理" />
     <MESSAGE value="登录返回的是自己的信息，然后Client的login.py可以获得自己的id(self_id)" />
-    <option name="LAST_COMMIT_MESSAGE" value="登录返回的是自己的信息，然后Client的login.py可以获得自己的id(self_id)" />
+    <MESSAGE value="合并" />
+    <option name="LAST_COMMIT_MESSAGE" value="合并" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -397,9 +403,14 @@
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MyQQ/Client/mainWindow.py</url>
-          <line>98</line>
-          <option name="timeStamp" value="18" />
+          <url>file://$PROJECT_DIR$/MyQQ/Client/search.py</url>
+          <line>80</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MyQQ/Server/main.py</url>
+          <line>39</line>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -414,6 +425,7 @@
       <configuration name="PythonConfigurationType">
         <watch expression="MessageQueue.mq" language="Python" />
         <watch expression="self.friends_name_list" language="Python" />
+        <watch expression="serverModule.ss" language="Python" />
       </configuration>
     </watches-manager>
   </component>

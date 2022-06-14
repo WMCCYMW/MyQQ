@@ -187,23 +187,7 @@
      <string>你的好友：</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="function_2">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>310</y>
-      <width>431</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>function2</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="function_1">
+   <widget class="QPushButton" name="searchButton">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -212,27 +196,16 @@
       <height>111</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>function1</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="function_3">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>420</y>
-      <width>431</width>
-      <height>111</height>
-     </rect>
+    <property name="font">
+     <font>
+      <pointsize>19</pointsize>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>function3</string>
+     <string>查找好友</string>
     </property>
    </widget>
    <widget class="QLabel" name="user_label">
@@ -285,6 +258,27 @@
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="viewApplyButton">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>360</y>
+      <width>431</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>19</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>查看申请</string>
+    </property>
+   </widget>
    <zorder>background</zorder>
    <zorder>prev_page</zorder>
    <zorder>friend_1</zorder>
@@ -298,11 +292,10 @@
    <zorder>friend_8</zorder>
    <zorder>friend_9</zorder>
    <zorder>friend_label</zorder>
-   <zorder>function_2</zorder>
-   <zorder>function_1</zorder>
-   <zorder>function_3</zorder>
+   <zorder>searchButton</zorder>
    <zorder>user_label</zorder>
    <zorder>next_page</zorder>
+   <zorder>viewApplyButton</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
