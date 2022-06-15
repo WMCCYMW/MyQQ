@@ -6,6 +6,8 @@ import MessageQueue
 import serverModule
 import json
 
+from MyQQ.Client import mainWindow
+
 
 class LoginInterface(QtWidgets.QMainWindow):
     switch_to_signup_window = QtCore.pyqtSignal()
@@ -36,8 +38,9 @@ class LoginInterface(QtWidgets.QMainWindow):
                 print(response[1])
                 break
             elif response[0] == "login" and (response[1] != "密码错误" or response[1] != "数据库错误"):
-                # 登录成功，更新自己的id
+                # 登录成功，更新自己的id和name
                 LoginInterface.self_id = response[1][0]
+                mainWindow.MainWindow.username = response[1][1]
                 self.switch_to_main(user_id,LoginInterface.self_id)
                 break
             else:

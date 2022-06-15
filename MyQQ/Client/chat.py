@@ -30,6 +30,7 @@ class ChatInterface(QtWidgets.QMainWindow):
             self.load_chat_history()
 
     def load_chat_history(self):
+        self.messageBrowser.clear()
         # 判断文件夹存在，若不存在，则新建
         if not os.path.exists("messages\\"+str(login.LoginInterface.self_id)):
             os.makedirs("messages\\"+str(login.LoginInterface.self_id))
@@ -41,12 +42,18 @@ class ChatInterface(QtWidgets.QMainWindow):
         file = open("messages\\" + str(login.LoginInterface.self_id) + "\\" + str(self.friend_id) + "_messages.txt", "r")  # 历史消息文件格式： /messages/selfId/friendId_messages.txt
         line = file.readline()
         while line != '':
-            # 进行字符串的替换
-            flag = line[1]
-            if flag == '1': # 这是friend发的
-                new_line = line.replace('1', self.friend_name, 1)
-            if flag == '0': # 这是自己发的
-                new_line = line.replace('0', mainWindow.username, 1)
+            if ((line.startswith('<1>') or line.startswith('<0>'))): # 判断是否进行字符串的替换
+                # 进行字符串的替换
+                flag = line[1]
+                if flag == '0': # 这是自己发的
+                    new_line = line.replace('0', mainWindow.MainWindow.username, 1)
+                elif flag == '1': # 这是friend发的
+                    new_line = line.replace('1', self.friend_name, 1)
+            else:
+                if line.startswith('\t'):
+                    new_line = line
+                else:
+                    new_line = '\t' + line
             # 使用self.messageBrowser.append()追加读取到的消息
             self.messageBrowser.append(new_line)
             line = file.readline()
@@ -68,10 +75,8 @@ class ChatInterface(QtWidgets.QMainWindow):
             # 判断是否发送成功
             while True:
                 response = self.q.get(True)
-                if (response[0] == "send_to_friend" and response[1] == "好友未在线"):
-                    '''
-                        提示用户“好友未在线”
-                    '''
+                if (response[0] == "send_to_friend" and response[2] != "成功"):
+                    self.show_error_message(response[2])
                     break
                 else:
                     self.write_to_file(message)
@@ -99,3 +104,7 @@ class ChatInterface(QtWidgets.QMainWindow):
 
     def on_clear_button_clicked(self):
         self.messageBrowser.clear()
+
+    def show_error_message(self, msg: str):
+        tempBox = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Warning, "警告", msg, QtWidgets.QMessageBox.Cancel)
+        tempBox.exec_()

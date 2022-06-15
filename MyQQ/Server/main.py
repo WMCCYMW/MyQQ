@@ -66,6 +66,7 @@ class ConnectionHandler(Thread):
                     response.append(friend_name)
                     if friend_id in online_connection:
                         response.append("成功")
+                        response.append(pkt[2])
                         friend_socket = connection_user[friend_id]
                         Server.send_to_friend(self, friend_socket, pkt)
                     else:
