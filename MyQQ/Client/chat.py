@@ -10,8 +10,10 @@ from MyQQ.Client import serverModule, mainWindow
 class ChatInterface(QtWidgets.QMainWindow):
     message_reminder=QtCore.pyqtSignal(int)
 
-    def __init__(self, friend_name: str,friend_id:int):
+    def __init__(self, friend_name: str,friend_id:int,socket,queue):
         super().__init__()
+        self.ss=socket
+        self.q=queue
         uic.loadUi("chat.ui", self)
         self.friend_name = friend_name
         self.friend_id=friend_id
@@ -62,10 +64,10 @@ class ChatInterface(QtWidgets.QMainWindow):
             now_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             pkt = ("send_to_friend", self.friend_id, now_time, message)
             pkt_json = json.dumps(pkt)
-            serverModule.ss.sendall(pkt_json.encode())
+            self.ss.sendall(pkt_json.encode())
             # 判断是否发送成功
             while True:
-                response = MessageQueue.mq.get(True)
+                response = self.q.get(True)
                 if (response[0] == "send_to_friend" and response[1] == "好友未在线"):
                     '''
                         提示用户“好友未在线”
@@ -75,7 +77,7 @@ class ChatInterface(QtWidgets.QMainWindow):
                     self.write_to_file(message)
                     self.load_chat_history()
                     break
-                MessageQueue.mq.put(response, True)
+                self.q.put(response, True)
             # self.messageBrowser.moveCursor(QtGui.QTextCursor.End)
             self.messageEditor.clear()
             # QtWidgets.QApplication.processEvents()

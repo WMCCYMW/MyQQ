@@ -17,19 +17,22 @@ class MainWindow(QtWidgets.QMainWindow):
     switch_to_search_window = QtCore.pyqtSignal()
     switch_to_friend_req_window = QtCore.pyqtSignal()
 
-    def __init__(self, username: str,userid):
+    def __init__(self, username: str,userid,socket,queue):
         super().__init__()
         self.username = username
+        self.ss=socket
+        self.q=queue
         uic.loadUi("mainWindow.ui", self)
         self.user_label.setText("欢迎" + username)
         #发送获取好友列表请求
         pkt = ("get_friend_list", '1')
         pkt_json = json.dumps(pkt)
-        serverModule.ss.send(pkt_json.encode())
+        self.ss.send(pkt_json.encode())
         #接收好友列表
         MainWindow.friends_name_list.clear()
         while True:
-            response = MessageQueue.mq.get(True)
+            response = self.q.get(True)
+            self.q.task_done()
             if (response[0] == "get_friend_list" and (response[1] == "无匹配项" or response[1] == "数据库错误")):
                 print(response[1])
                 break
@@ -38,7 +41,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 for i in response[2:]:
                     MainWindow.friends_name_list.append(i)
                 break
-            MessageQueue.mq.put(response, True)
+            self.q.put(response, True)
         for i in range(self.friends_name_list.__len__()):
             MainWindow.friends_new_message_status.append(False)
         self.load_friend()

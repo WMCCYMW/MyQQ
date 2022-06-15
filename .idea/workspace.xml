@@ -4,16 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="合并">
+    <list default="true" id="aa560855-ca8f-4aeb-a927-5681eb87dc8d" name="变更" comment="存在受不到包，发不出包的问题">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/Client/chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/chat.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/friendRequest.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/friendRequest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/login.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/mainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/mainWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyQQ/Client/mainWindow.ui" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/mainWindow.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/search.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/search.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Client/serverModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Client/serverModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyQQ/Server/Server.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/Server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Server/SqlServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/SqlServer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyQQ/Server/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/MyQQ/Server/main.py" afterDir="false" />
     </list>
@@ -49,12 +50,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\lenovo\Desktop\PythonClass\MyQQ\MyQQ\Server" />
@@ -346,7 +346,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655220482612</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="存在受不到包，发不出包的问题">
+      <created>1655226989742</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1655226989742</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -387,30 +394,21 @@
     <MESSAGE value="收到好友私聊包、待确定的好友申请包的处理" />
     <MESSAGE value="登录返回的是自己的信息，然后Client的login.py可以获得自己的id(self_id)" />
     <MESSAGE value="合并" />
-    <option name="LAST_COMMIT_MESSAGE" value="合并" />
+    <MESSAGE value="存在受不到包，发不出包的问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="存在受不到包，发不出包的问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MyQQ/Server/Server.py</url>
-          <line>38</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/MyQQ/Client/signup.py</url>
           <line>27</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MyQQ/Client/search.py</url>
-          <line>80</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MyQQ/Server/main.py</url>
-          <line>39</line>
-          <option name="timeStamp" value="36" />
+          <url>file://$PROJECT_DIR$/MyQQ/Client/controller.py</url>
+          <line>93</line>
+          <option name="timeStamp" value="77" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -426,6 +424,9 @@
         <watch expression="MessageQueue.mq" language="Python" />
         <watch expression="self.friends_name_list" language="Python" />
         <watch expression="serverModule.ss" language="Python" />
+        <watch expression="MessageQueue.mq" language="Python" />
+        <watch expression="self.queue" language="Python" />
+        <watch expression="clientsocket" language="Python" />
       </configuration>
     </watches-manager>
   </component>

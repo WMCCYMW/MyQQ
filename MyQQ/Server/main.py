@@ -45,10 +45,13 @@ class ConnectionHandler(Thread):
                     # 给接收申请方发包，提示之
                     recipient_name = pkt[1]
                     recipient_id = Server.search_one_by_name(recipient_name)[0]
-                    recipient_socket = connection_user[recipient_id]
-                    response = ("get_friend_application")
-                    response_json = json.dumps(response)
-                    recipient_socket.sendall(bytes(response_json, "utf-8"))
+                    try:
+                        recipient_socket = connection_user[recipient_id]
+                        response = ("get_friend_application")
+                        response_json = json.dumps(response)
+                        recipient_socket.sendall(bytes(response_json, "utf-8"))
+                    except:
+                        pass
 
                 # 处理好友申请
                 elif request == "handle_friend_application":
@@ -93,7 +96,7 @@ class ConnectionHandler(Thread):
 if __name__=="__main__":
     try:
         listener=socket.socket(socket.AF_INET)
-        listener.bind(('192.168.0.103',3456))
+        listener.bind(('127.0.0.1',3456))
         listener.listen(20)
         print("服务器启动完毕")
         while True :

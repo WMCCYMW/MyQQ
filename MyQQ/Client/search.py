@@ -9,7 +9,7 @@ from MyQQ.Client import MessageQueue
 class SearchInterface(QtWidgets.QMainWindow):
     switch_to_main_window = QtCore.pyqtSignal()
 
-    def __init__(self, friend_list: list):
+    def __init__(self, friend_list: list,ss,queue):
         super().__init__()
         # 传入好友列表
         self.friend_list = friend_list
@@ -18,6 +18,8 @@ class SearchInterface(QtWidgets.QMainWindow):
         self.searchButton.clicked.connect(self.on_search_button_clicked)
         self.addOrDelButton.setVisible(False)
         self.searchFailed.setText("")
+        self.ss=ss
+        self.queue=queue
         self.friendName.setText("")
         self.show()
 
@@ -80,9 +82,9 @@ class SearchInterface(QtWidgets.QMainWindow):
 
         pkt = ("search_user", search_name)
         pkt_json = json.dumps(pkt)
-        serverModule.ss.sendall(pkt_json.encode())
+        self.ss.sendall(pkt_json.encode())
         while True :
-            response=MessageQueue.mq.get(True)
+            response=self.queue.get(True)
             if(response[0] == "search_user" and (response[1] == "无匹配项" or response[1] == "数据库错误")):
                 return False
             else:
@@ -93,15 +95,15 @@ class SearchInterface(QtWidgets.QMainWindow):
     def on_add_friend_button_clicked(self, search_name):
         pkt = ("add_friend", search_name)
         pkt_json = json.dumps(pkt)
-        serverModule.ss.sendall(pkt_json.encode())
+        self.ss.sendall(pkt_json.encode())
         while True :
-            response=MessageQueue.mq.get(True)
+            response=self.queue.get(True)
             if(response[0] == "add_friend" and (response[1] == "3" )):
                 self.show_error_message("数据库错误，发送失败")
                 break
             else:
                 break
-            MessageQueue.mq.put(response,True)
+            self.queue.put(response,True)
 
     def on_return_button_clicked(self):
         self.switch_to_main_window.emit()

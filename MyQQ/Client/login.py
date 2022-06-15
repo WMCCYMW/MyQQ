@@ -1,3 +1,5 @@
+import time
+
 from PyQt5 import QtWidgets, uic, QtCore
 import general
 import MessageQueue
@@ -11,8 +13,10 @@ class LoginInterface(QtWidgets.QMainWindow):
 
     # 自己的id，默认未登录是-1
     self_id = -1
-    def __init__(self):
+    def __init__(self,queue,socket):
         super().__init__()
+        self.ss=socket
+        self.q=queue
         uic.loadUi("login.ui", self)
         self.loginButton.clicked.connect(self.on_login_button_clicked)
         self.signupButton.clicked.connect(self.on_signup_button_clicked)
@@ -24,18 +28,20 @@ class LoginInterface(QtWidgets.QMainWindow):
         password = self.password.text()
         pkt = ("login", user_id, password)
         pkt_json = json.dumps(pkt)
-        serverModule.ss.sendall(pkt_json.encode())
-        while True :
-            response=MessageQueue.mq.get(True)
+        self.ss.sendall(pkt_json.encode())
+        while True:
+            response=self.q.get(True)
+            self.q.task_done()
             if(response[0] == "login" and (response[1] == "密码错误" or response[1] == "数据库错误")):
                 print(response[1])
                 break
-            else:
+            elif response[0] == "login" and (response[1] != "密码错误" or response[1] != "数据库错误"):
                 # 登录成功，更新自己的id
                 LoginInterface.self_id = response[1][0]
                 self.switch_to_main(user_id,LoginInterface.self_id)
                 break
-            MessageQueue.mq.put(response,True)
+            else:
+                self.q.put(response,True)
 
     # 注册被点时的操作
     def on_signup_button_clicked(self):

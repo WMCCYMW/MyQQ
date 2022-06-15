@@ -58,7 +58,7 @@ def add_friend(handler, pkt):
     applicant = handler.id
     recipient_name = pkt[1]
     recipient = search_one_by_name(recipient_name)[0]
-    response = list()
+    response = []
     response.append("add_friend")
     result = SqlServer.FriendApplicantHandler.application(applicant, recipient)
     response.append(result)

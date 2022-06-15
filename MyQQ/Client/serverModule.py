@@ -3,14 +3,18 @@ import MessageQueue
 import json
 import login
 import mainWindow
-import chat
-ss=socket.socket(socket.AF_INET)
+
 
 def Reciver(clientsocket,cont):
     while True:
-        response_json= str(clientsocket.recv(1024),encoding='utf-8')
-        response=json.loads(response_json)
+        try:
+            response_json= str(clientsocket.recv(1024),encoding='utf-8')
+            response = json.loads(response_json)
+        except:
+            pass
+
         response_name = response[0]
+        print(response)
 
 
         if response_name == "receive_from_friend": # 如果是私聊信息，则写入文件
@@ -30,8 +34,10 @@ def Reciver(clientsocket,cont):
             '''
                 在对应的位置亮小红点
             '''
+            pass
+
         else:
             #其余的，则加入消息队列
-            MessageQueue.mq.put(response)
+            cont.q.put(response)
             
 

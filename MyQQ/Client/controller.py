@@ -15,18 +15,23 @@ from MyQQ.Client import serverModule, MessageQueue
 
 
 class Controller:
-    def __init__(self):
+    def __init__(self,socket):
+        self.ss=socket
+        self.q=MessageQueue.mq
         self.app = QtWidgets.QApplication(sys.argv)
-        self.window = login.LoginInterface()
+        self.window = login.LoginInterface(self.q,self.ss)
         self.widget = QtWidgets.QStackedWidget()
-        self.login_window = login.LoginInterface()
+        self.login_window = login.LoginInterface(self.q,self.ss)
         self.login_window.show()
         self.login_window.switch_to_signup_window.connect(self.switch_to_signup)
         self.login_window.switch_to_main_window.connect(self.switch_to_main_window)
+
         self.chat_windows = {}
         self.request_list = []
         self.user_name = ""
         self.user_id=""
+
+
 
 
     # 从注册界面切换到登录界面
@@ -61,7 +66,7 @@ class Controller:
         except:
             pass
 
-        self.mainWindow = mainWindow.MainWindow(username,userid)
+        self.mainWindow = mainWindow.MainWindow(username,userid,self.ss,self.q)
         self.user_name=username
         self.user_id=userid
         self.mainWindow.open_chat_window.connect(self.open_chat_window)
@@ -72,20 +77,20 @@ class Controller:
 
 
     def open_chat_window(self, friend_name: str,friend_id:int):
-        self.chat_windows[friend_id] = chat.ChatInterface(friend_name,friend_id)
+        self.chat_windows[friend_id] = chat.ChatInterface(friend_name,friend_id,self.ss,self.q)
         self.chat_windows[friend_id].message_reminder.connect(self.chat_windows[friend_id].flush_chat_history)
         self.chat_windows[friend_id].show()
 
     def switch_to_search_window(self):
         self.mainWindow.close()
-        self.searchWindow = search.SearchInterface(mainWindow.MainWindow.friends_name_list)
+        self.searchWindow = search.SearchInterface(mainWindow.MainWindow.friends_name_list,self.ss,self.q)
         self.searchWindow.switch_to_main_window.connect(partial(self.switch_to_main_window, self.user_name,self.user_id))
 
     def switch_to_friend_req_window(self):
         self.mainWindow.close()
         pkt = ("get_friend_list", 0)
         pkt_json = json.dumps(pkt)
-        serverModule.ss.send(pkt_json.encode())
+        self.ss.send(pkt_json.encode())
         self.request_list.clear()
         while True :
             response=MessageQueue.mq.get(True)
@@ -95,9 +100,10 @@ class Controller:
             else:
                 for i in response[2:]:
                     self.request_list.append(i)
+                break
             MessageQueue.mq.put(response,True)
-        self.friendReqWindow = friendRequest.FriendReqInterface(self.request_list)
-        self.friendReqWindow.switch_to_main_window.connect(partial(self.switch_to_main_window, self.user_name))
+        self.friendReqWindow = friendRequest.FriendReqInterface(self.request_list,self.ss,self.q)
+        self.friendReqWindow.switch_to_main_window.connect(partial(self.switch_to_main_window, self.user_name,self.user_id))
 
     def on_received_message(self, receiver: str, message: str, sender: str):
         self.chat_windows[receiver].on_receive_message(sender, message)

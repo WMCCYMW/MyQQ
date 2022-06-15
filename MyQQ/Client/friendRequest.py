@@ -12,9 +12,11 @@ class FriendReqInterface(QtWidgets.QMainWindow):
     current_request_page = 0
     switch_to_main_window = QtCore.pyqtSignal()
 
-    def __init__(self, friend_request_list: list):
+    def __init__(self, friend_request_list: list,socket,queue):
         super().__init__()
         self.friend_request_list = friend_request_list
+        self.ss=socket
+        self.q=queue
         for i in enumerate(friend_request_list):
             self.has_processed_friend_req.append(False)
         uic.loadUi("friendRequest.ui", self)
@@ -101,12 +103,12 @@ class FriendReqInterface(QtWidgets.QMainWindow):
         # 这里插入接受请求代码
         pkt = ("handle_friend_application", '1',self.friend_request_list[request_pos][0])
         pkt_json = json.dumps(pkt)
-        serverModule.ss.sendall(pkt_json.encode())
+        self.ss.sendall(pkt_json.encode())
         pos_on_page = request_pos % 6
         print("added friend request pos:" + str(request_pos))
         #
         while True :
-            response=MessageQueue.mq.get(True)
+            response=self.q.get(True)
             if(response[0] == "handle_friend_application" and (response[1] == "3" )):
                 self.show_error_message("数据库错误")
                 break
@@ -118,17 +120,17 @@ class FriendReqInterface(QtWidgets.QMainWindow):
                 QtWidgets.QApplication.processEvents()
                 self.show()
                 break
-            MessageQueue.mq.put(response,True)
+            self.q.put(response,True)
     def on_del_button_clicked(self, request_pos: int):
         # 这里插入拒绝请求代码
         pkt = ("handle_friend_application", '0', self.friend_request_list[request_pos][0])
         pkt_json = json.dumps(pkt)
-        serverModule.ss.sendall(pkt_json.encode())
+        self.ss.sendall(pkt_json.encode())
         pos_on_page = request_pos % 6
         print("rejected friend request pos:" + str(request_pos))
         #
         while True:
-            response = MessageQueue.mq.get(True)
+            response = self.q.get(True)
             if (response[0] == "handle_friend_application" and (response[1] == "3")):
                 self.show_error_message("数据库错误")
                 break
@@ -140,7 +142,7 @@ class FriendReqInterface(QtWidgets.QMainWindow):
                 QtWidgets.QApplication.processEvents()
                 self.show()
                 break
-            MessageQueue.mq.put(response, True)
+            self.q.put(response, True)
 
 
     def on_prev_page_button_clicked(self):
