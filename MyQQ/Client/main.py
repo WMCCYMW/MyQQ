@@ -4,11 +4,11 @@ import controller
 import sys
 import serverModule
 IP="127.0.0.1"
-Port="3456"
+Port="3457"
 if __name__ == '__main__':
     try:
         s = socket.socket(socket.AF_INET)
-        s.connect(("127.0.0.1",3456))
+        s.connect(("127.0.0.1",3457))
         cont = controller.Controller(s)
         ReciveThread=threading.Thread(target=serverModule.Reciver,args=(s,cont))
         ReciveThread.start()

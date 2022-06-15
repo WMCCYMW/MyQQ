@@ -1,3 +1,4 @@
+import os
 import socket
 import MessageQueue
 import json
@@ -21,6 +22,13 @@ def Reciver(clientsocket,cont):
             friend_id = response[1] # 来源id
             time = response[2] # 发送时间
             message = response[3] # 消息内容
+            # 判断文件夹存在，若不存在，则新建
+            if not os.path.exists("messages\\" + str(login.LoginInterface.self_id)):
+                os.makedirs("messages\\" + str(login.LoginInterface.self_id))
+            # 判断文件
+            if not os.path.exists("messages\\" + str(login.LoginInterface.self_id) + "\\" + str(friend_id) + "_messages.txt"):
+                file = open("messages\\" + str(login.LoginInterface.self_id) + "\\" + str(friend_id) + "_messages.txt","a")
+                file.close()
             file = open("messages\\"+ str(login.LoginInterface.self_id) +"\\"+ str(friend_id) +"_messages.txt", "a") # 历史消息文件格式： /messages/selfId/friendId_messages
             file.write("<1><" + time + ">:\n\t" + message + "\n") # 第一个<1>代表是好友发送的：<1><time>\n\t你好 <0><time>我发的
             #.flush()

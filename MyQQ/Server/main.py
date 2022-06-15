@@ -75,6 +75,23 @@ class ConnectionHandler(Thread):
                     response_json = json.dumps(response)
                     self.connection.sendall(bytes(response_json, "utf-8"))
 
+                # 管理员：删除用户请求
+                elif request == "delete_user":
+                    Server.delete_user(self, pkt)
+
+                # 管理员：展示信息请求
+                elif request == "show_details":
+                    Server.show_details(self)
+
+                # 管理员：更改用户名
+                elif request == "change_user_name":
+                    Server.change_user_name(self, pkt)
+
+                # 管理员：更改密码
+                elif request == "change_user_pwd":
+                    Server.change_user_pwd(self, pkt)
+
+
 
 
 
@@ -97,7 +114,7 @@ class ConnectionHandler(Thread):
 if __name__=="__main__":
     try:
         listener=socket.socket(socket.AF_INET)
-        listener.bind(('127.0.0.1',3456))
+        listener.bind(('127.0.0.1',3457))
         listener.listen(20)
         print("服务器启动完毕")
         while True :

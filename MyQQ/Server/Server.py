@@ -114,11 +114,39 @@ def find_user(handler, pkt):
 
 # 给好友发送消息
 def send_to_friend(handler, friend_socket, pkt):
+    SqlServer.DataUpdateHandler.message_count_increase(handler.id)
     # 把pkt[1]，也就是目标改为来源；pkt[0]改为"receive_from_friend"
     pkt[1] = handler.id
     pkt[0] = "receive_from_friend"
     pkt_json = json.dumps(pkt)
     friend_socket.sendall(bytes(pkt_json, encoding='utf-8'))  # 发送消息
+
+
+# 管理员：删除用户
+def delete_user(handler, pkt):
+    user_id = pkt[1]
+    SqlServer.DataUpdateHandler.delete_user(user_id)
+
+# 管理员：展示信息
+def show_details(handler):
+    result = SqlServer.DataUpdateHandler.show_details()
+    response = list()
+    response.append("show_details")
+    response.append(result)
+    response_json = json.dumps(response)
+    handler.connection.sendall(bytes(response_json, "utf-8"))
+
+# 管理员：更改用户名
+def change_user_name(handler, pkt):
+    id = pkt[1]
+    name = pkt[2]
+    SqlServer.DataUpdateHandler.change_user_name(id, name)
+
+# 管理员：更改密码
+def change_user_pwd(handler, pkt):
+    id = pkt[1]
+    pwd = pkt[2]
+    SqlServer.DataUpdateHandler.change_user_pwd(id, pwd)
 
 
 
