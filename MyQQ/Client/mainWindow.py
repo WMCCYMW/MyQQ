@@ -16,6 +16,7 @@ class MainWindow(QtWidgets.QMainWindow):
     username = ""
     switch_to_search_window = QtCore.pyqtSignal()
     switch_to_friend_req_window = QtCore.pyqtSignal()
+    message_reminder = QtCore.pyqtSignal(int)
 
     def __init__(self, username: str,userid,socket,queue):
         super().__init__()
@@ -119,10 +120,13 @@ class MainWindow(QtWidgets.QMainWindow):
             QtWidgets.QApplication.processEvents()
             self.show()
 
-    def on_receive_new_message(friend_id: int):
+    def on_receive_new_message(self, friend_id: int):
         for i, (f, f_status) in enumerate(zip(MainWindow.friends_name_list, MainWindow.friends_new_message_status)):
             if f[0] == friend_id:
                 MainWindow.friends_new_message_status[i] = True
+        self.load_friend()
+        QtWidgets.QApplication.processEvents()
+        self.show()
 
     def on_search_button_clicked(self):
         self.switch_to_search_window.emit()

@@ -30,6 +30,7 @@ class Controller:
         self.request_list = []
         self.user_name = ""
         self.user_id=""
+        self.is_MainWindow_exist = False
 
 
 
@@ -47,7 +48,7 @@ class Controller:
 
     def switch_to_signup(self):
         self.login_window.close()
-        self.signup_window = signup.SignupInterface()
+        self.signup_window = signup.SignupInterface(self.q,self.ss)
         self.signup_window.show()
         self.signup_window.switch_to_login_window.connect(self.switch_to_login)
 
@@ -66,28 +67,36 @@ class Controller:
         except:
             pass
 
-        self.mainWindow = mainWindow.MainWindow(username,userid,self.ss,self.q)
-        self.user_name=username
-        self.user_id=userid
-        self.mainWindow.open_chat_window.connect(self.open_chat_window)
-        self.mainWindow.switch_to_search_window.connect(self.switch_to_search_window)
-        self.mainWindow.switch_to_friend_req_window.connect(self.switch_to_friend_req_window)
-        self.mainWindow.show()
+        if not self.is_MainWindow_exist:
+            self.is_MainWindow_exist = True
+            self.mainWindow = mainWindow.MainWindow(username,userid,self.ss,self.q)
+            self.user_name=username
+            self.user_id=userid
+            self.mainWindow.open_chat_window.connect(self.open_chat_window)
+            self.mainWindow.switch_to_search_window.connect(self.switch_to_search_window)
+            self.mainWindow.switch_to_friend_req_window.connect(self.switch_to_friend_req_window)
+            self.mainWindow.message_reminder.connect(self.mainWindow.on_receive_new_message)
+            self.mainWindow.show()
 
 
 
     def open_chat_window(self, friend_name: str,friend_id:int):
-        self.chat_windows[friend_id] = chat.ChatInterface(friend_name,friend_id,self.ss,self.q)
-        self.chat_windows[friend_id].message_reminder.connect(self.chat_windows[friend_id].flush_chat_history)
-        self.chat_windows[friend_id].show()
+        try:
+            self.chat_windows[friend_id] = chat.ChatInterface(friend_name,friend_id,self.ss,self.q)
+            self.chat_windows[friend_id].message_reminder.connect(self.chat_windows[friend_id].flush_chat_history)
+            self.chat_windows[friend_id].show()
+        except:
+            pass
 
     def switch_to_search_window(self):
         self.mainWindow.close()
+        self.is_MainWindow_exist = False
         self.searchWindow = search.SearchInterface(mainWindow.MainWindow.friends_name_list,self.ss,self.q)
         self.searchWindow.switch_to_main_window.connect(partial(self.switch_to_main_window, self.user_name,self.user_id))
 
     def switch_to_friend_req_window(self):
         self.mainWindow.close()
+        self.is_MainWindow_exist = False
         pkt = ("get_friend_list", 0)
         pkt_json = json.dumps(pkt)
         self.ss.send(pkt_json.encode())

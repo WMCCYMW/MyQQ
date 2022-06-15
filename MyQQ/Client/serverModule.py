@@ -25,10 +25,12 @@ def Reciver(clientsocket,cont):
             file.write("<1><" + time + ">:\n\t" + message + "\n") # 第一个<1>代表是好友发送的：<1><time>\n\t你好 <0><time>我发的
             #.flush()
             file.close()
-            #提醒在对应的位置亮红点
-            mainWindow.MainWindow.on_receive_new_message(friend_id)
             #自动刷新聊天框
-            cont.chat_windows[friend_id].message_reminder.emit(friend_id)
+            try:
+                cont.chat_windows[friend_id].message_reminder.emit(friend_id)
+            except:
+                # 提醒在对应的位置亮红点
+                cont.mainWindow.message_reminder.emit(friend_id)
 
         elif response_name == "get_friend_application": # 如果是好友申请信息，则给个小红点
             '''

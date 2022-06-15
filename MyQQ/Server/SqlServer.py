@@ -86,10 +86,14 @@ class FriendApplicantHandler(object):
     def get_friend_list(id, state):
         db = pymysql.connect(host="localhost", user="root", password="chen123456", db="pythonwork") # 连接数据库
         cursor = db.cursor() # 获取数据库的游标
-        sql = "SELECT * FROM friend_application WHERE (applicant = %s or recipient = %s) and state = %s"
-        args = (id, id, state)
+        # 获取好友申请列表
+        if state == 0:
+            sql = "SELECT * FROM friend_application WHERE recipient = %s and state = 0" % (id)
+        # 获取好友列表
+        else:
+            sql = "SELECT * FROM friend_application WHERE (applicant = %s or recipient = %s) and state = 1" % (id ,id)
         try:
-            cursor.execute(sql, args)
+            cursor.execute(sql)
             result = cursor.fetchall()
             db.close()
             return result

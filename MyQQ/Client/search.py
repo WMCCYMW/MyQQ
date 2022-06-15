@@ -102,6 +102,8 @@ class SearchInterface(QtWidgets.QMainWindow):
                 self.show_error_message("数据库错误，发送失败")
                 break
             else:
+                self.addOrDelButton.setVisible(False)
+                self.searchFailed.setText("已发送")
                 break
             self.queue.put(response,True)
 
