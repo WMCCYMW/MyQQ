@@ -47,7 +47,7 @@ class ConnectionHandler(Thread):
                     recipient_id = Server.search_one_by_name(recipient_name)[0]
                     try:
                         recipient_socket = connection_user[recipient_id]
-                        response = ("get_friend_application")
+                        response = ("get_friend_application", 0)
                         response_json = json.dumps(response)
                         recipient_socket.sendall(bytes(response_json, "utf-8"))
                     except:
@@ -114,7 +114,7 @@ class ConnectionHandler(Thread):
 if __name__=="__main__":
     try:
         listener=socket.socket(socket.AF_INET)
-        listener.bind(('127.0.0.1',3457))
+        listener.bind(('192.168.0.103',3457))
         listener.listen(20)
         print("服务器启动完毕")
         while True :

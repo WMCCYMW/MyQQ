@@ -119,7 +119,7 @@ if __name__ == "__main__":
     try:
         # 连接部分
         client = socket.socket(socket.AF_INET)
-        client.connect(('127.0.0.1', 3457))
+        client.connect(('192.168.0.103', 3457))
         print("这是一个管理员客户端")
         SendRequestHandler(client).start()
         RecvRespHandler(client).start()
