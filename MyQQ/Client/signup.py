@@ -33,7 +33,7 @@ class SignupInterface(QtWidgets.QMainWindow):
                     print(response[1])
                     break
                 elif response[0] == "register" and response[1] != "密码错误" and response[1] != "数据库错误":
-                    self.switch_to_login_window
+                    self.switch_to_login_window.emit()
                     break
                 else:
                     self.q.put(response, True)

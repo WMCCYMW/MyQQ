@@ -39,7 +39,7 @@ class Controller:
 
     def switch_to_login(self):
         self.signup_window.close()
-        self.login_window = login.LoginInterface()
+        self.login_window = login.LoginInterface(self.q,self.ss)
         self.login_window.show()
         self.login_window.switch_to_signup_window.connect(self.switch_to_signup)
         self.login_window.switch_to_main_window.connect(self.switch_to_main_window)
